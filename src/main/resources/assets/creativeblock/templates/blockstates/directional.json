@@ -1,0 +1,8 @@
+{
+    "variants": {
+        "axis=y":  { "model": "#insert_directional_vertical" },
+        "axis=z":   { "model": "#insert_directional_horizontal" },
+        "axis=x":   { "model": "#insert_directional_horizontal", "y": 90 },
+        "axis=none": { "model": "#insert_directional_none" }
+    }
+}
