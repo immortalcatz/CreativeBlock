@@ -22,40 +22,38 @@
  * THE SOFTWARE.
  */
 
-package me.dags.creativeblock.adapter;
+package me.dags.creativeblock.block;
+
+import me.dags.creativeblock.CreativeBlock;
+import me.dags.creativeblock.adapter.BlockAdapter;
+import me.dags.creativeblock.adapter.BlockTypeAdapter;
+import me.dags.creativeblock.definition.BlockDefinition;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockLadder;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.util.BlockPos;
+import net.minecraft.world.World;
 
 /**
  * @author dags <dags@dags.me>
  */
 
-public class BlockNames
+public class CBLadder extends BlockLadder
 {
-    public String block = "block";
-    public String directional = "directional";
-    public String door = "door";
-    public String double_plant = "double_plant";
-    public String double_slab = "double_slab";
-    public String fence = "fence";
-    public String fence_gate = "fence_gate";
-    public String ghost_block = "ghost_block";
-    public String ghost_pane = "ghost_pane";
-    public String glass = "glass";
-    public String glass_stained = "stained_glass";
-    public String half_door = "half_door";
-    public String ice = "ice";
-    public String ladder = "ladder";
-    public String leaves = "leaves";
-    public String light_web = "light_web";
-    public String log = "log";
-    public String pane = "pane";
-    public String pane_stained = "pane_stained";
-    public String paving = "paving";
-    public String pot = "pot";
-    public String slab = "slab";
-    public String stairs = "stairs";
-    public String torch = "torch";
-    public String trapdoor = "trap_door";
-    public String trunk = "trunk";
-    public String wall = "wall";
-    public String web = "web";
+    public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock)
+    {}
+
+    public static BlockTypeAdapter adapter()
+    {
+        return new BlockAdapter(CreativeBlock.blockNames().ladder)
+        {
+            @Override
+            public void createBlock(String transformedName, BlockDefinition definition)
+            {
+                Block block = new CBLadder();
+                super.setAttributes(block, transformedName, definition);
+                super.registerBlock(block, definition);
+            }
+        };
+    }
 }

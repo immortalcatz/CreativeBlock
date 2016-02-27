@@ -53,28 +53,24 @@ public class _TODO
     #GLASS,
     #STAINED_GLASS,
     #FENCE_GATE,
+    #LADDER,
+    #ICE,
+    #POT,
+    #TORCH,
+    #DOUBLE_PLANT,
 
     PISTON_EXTENSION,
 
-    LADDER,
-    TORCH,
-
-
-
-
-    DAY_SENSOR,
     PLATE,
-    ICE,
     ANVIL,
     CARPET,
     CAULDRON,
     CROPS,
-    POT,
     BUTTON,
     FURNACE,
-    CHAIR,
+    CHAIR (slab),
+    DAY_SENSOR,
     SHORT_CHAIR,
-    DOUBLE_PLANT,
     ;
     */
 }
