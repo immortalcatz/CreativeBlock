@@ -27,7 +27,8 @@ Clicking the 'create' button will generate the block definition and put it in th
 Blockstate and Model files are also generated and placed in the correct directories. These files are required by Minecraft, and can be overriden to include more intricate models via resourcepacks.
 ___
 ##### 3. Finishing off
-Once you have created all your block definitions and added all your texture files, your new blockpack is ready to test. The blockpack directory can be placed directly in the .minecraft/blockpacks folder, or can be zipped first - note zipped blockpacks must conform to Minecraft's structure for resourcepacks.
+Once you have created all your block definitions and added all your texture files, your new blockpack is ready to test.  
+The blockpack directory can be placed directly in the .minecraft/blockpacks folder, or can be zipped first - note zipped blockpacks must conform to Minecraft's structure for resourcepacks.
 ___
 #### Tips
 
