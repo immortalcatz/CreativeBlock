@@ -24,6 +24,8 @@
 
 package me.dags.creativeblock.definition;
 
+import me.dags.creativeblock.definition.serialize.DefinitionSerializable;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -55,7 +57,7 @@ public class BlockDefinition
         }
     }
 
-    public JsonDefinition toJsonDefinition()
+    public DefinitionSerializable toJsonDefinition()
     {
         String mat = material.name();
         String[] types = new String[blockTypes.size()];
@@ -63,14 +65,14 @@ public class BlockDefinition
         {
             types[i] = blockTypes.get(i).name();
         }
-        JsonDefinition definition = new JsonDefinition();
+        DefinitionSerializable definition = new DefinitionSerializable();
         definition.name = name;
         definition.base = mat;
         definition.types = types;
         return definition;
     }
 
-    public static BlockDefinition from(JsonDefinition definition)
+    public static BlockDefinition from(DefinitionSerializable definition)
     {
         if (!definition.validate())
         {

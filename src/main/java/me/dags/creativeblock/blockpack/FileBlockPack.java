@@ -27,7 +27,7 @@ package me.dags.creativeblock.blockpack;
 import com.google.gson.stream.JsonReader;
 import me.dags.creativeblock.CreativeBlock;
 import me.dags.creativeblock.definition.BlockDefinition;
-import me.dags.creativeblock.definition.JsonDefinition;
+import me.dags.creativeblock.definition.serialize.DefinitionSerializable;
 import me.dags.creativeblock.util.JsonUtil;
 import net.minecraftforge.fml.client.FMLFileResourcePack;
 
@@ -97,7 +97,7 @@ public class FileBlockPack extends BlockPack
             if (entry.getName().startsWith(definitionsDir) && entry.getName().endsWith(".json"))
             {
                 JsonReader reader = new JsonReader(new InputStreamReader(zipFile.getInputStream(entry)));
-                JsonDefinition definition = JsonUtil.deserialize(reader, JsonDefinition.class);
+                DefinitionSerializable definition = JsonUtil.deserialize(reader, DefinitionSerializable.class);
                 definition.tabId = getTabName(entry.getName());
                 definitions.add(BlockDefinition.from(definition));
             }

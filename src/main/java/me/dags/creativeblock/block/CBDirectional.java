@@ -42,6 +42,8 @@ import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 /**
  * @author dags <dags@dags.me>
@@ -55,6 +57,12 @@ public class CBDirectional extends BlockRotatedPillar
     {
         super(material);
         this.setDefaultState(this.blockState.getBaseState().withProperty(AXIS, EnumAxis.Y));
+    }
+
+    @SideOnly(Side.CLIENT)
+    public Item getItem(World worldIn, BlockPos pos)
+    {
+        return Item.getItemFromBlock(this);
     }
 
     public IBlockState getStateFromMeta(int meta)

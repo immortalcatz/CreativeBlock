@@ -24,9 +24,14 @@
 
 package me.dags.creativeblock;
 
+import me.dags.creativeblock.app.util.MCJsonDataProvider;
 import me.dags.creativeblock.adapter.BlockNames;
+import me.dags.creativeblock.adapter.TypeRegistry;
+import me.dags.creativeblock.app.data.JsonData;
+import me.dags.creativeblock.block.*;
 import me.dags.creativeblock.blockpack.BlockPack;
 import me.dags.creativeblock.definition.BlockDefinition;
+import me.dags.creativeblock.definition.BlockType;
 import me.dags.creativeblock.proxy.*;
 import me.dags.creativeblock.util.FileUtil;
 import net.minecraft.client.Minecraft;
@@ -51,17 +56,67 @@ public final class CreativeBlock
     private File blocksDir = Minecraft.getMinecraft().mcDataDir;
     private Config config = new Config();
     private Proxy proxy = new EmptyProxy();
-    private BlockNames blockNames = new BlockNames();
 
     private CreativeBlock()
     {}
 
+    public static CreativeBlock withBlockNames(BlockNames names)
+    {
+        BlockNames.setBlockNames(names);
+        return INSTANCE;
+    }
+
+    private void registerTypes()
+    {
+        TypeRegistry.register(BlockType.ANVIL, CBAnvil.adapter());
+        TypeRegistry.register(BlockType.BLOCK, CBBlock.adapter());
+        TypeRegistry.register(BlockType.BUTTON, CBButton.adapter());
+        TypeRegistry.register(BlockType.CARPET, CBCarpet.adapter());
+        TypeRegistry.register(BlockType.CAULDRON, CBCauldron.adapter());
+        TypeRegistry.register(BlockType.CHAIR, CBChair.adapter());
+        TypeRegistry.register(BlockType.CROPS, CBCrops.adapter());
+        TypeRegistry.register(BlockType.DAY_SENSOR, CBDaySensor.adapter());
+        TypeRegistry.register(BlockType.DOOR, CBDoor.adapter());
+        TypeRegistry.register(BlockType.DOUBLE_PLANT, CBDoublePlant.adapter());
+        TypeRegistry.register(BlockType.FENCE, CBFence.adapter());
+        TypeRegistry.register(BlockType.FENCE_GATE, CBFenceGate.adapter());
+        TypeRegistry.register(BlockType.FURNACE, CBFurnace.adapter());
+        TypeRegistry.register(BlockType.GHOST_BLOCK, CBGhostBlock.adapter());
+        TypeRegistry.register(BlockType.GHOST_PANE, CBGhostPane.adapter());
+        TypeRegistry.register(BlockType.GLASS, CBGlassBlock.adapter());
+        TypeRegistry.register(BlockType.GLASS_STAINED, CBGlassBlockStained.adapter());
+        TypeRegistry.register(BlockType.HALF_DOOR, CBHalfDoor.adapter());
+        TypeRegistry.register(BlockType.ICE, CBIce.adapter());
+        TypeRegistry.register(BlockType.LADDER, CBLadder.adapter());
+        TypeRegistry.register(BlockType.LEAVES, CBLeaves.adapter());
+        TypeRegistry.register(BlockType.LIGHT_WEB, CBLightWeb.adapter());
+        TypeRegistry.register(BlockType.LOG, CBLog.adapter());
+        TypeRegistry.register(BlockType.PANE, CBPane.adapter());
+        TypeRegistry.register(BlockType.PANE_STAINED, CBPaneStained.adapter());
+        TypeRegistry.register(BlockType.PILLAR, CBDirectional.adapter());
+        TypeRegistry.register(BlockType.PISTON_EXTENSION, CBPistonExtension.adapter());
+        TypeRegistry.register(BlockType.PLANT, CBPlant.adapter());
+        TypeRegistry.register(BlockType.PLATE, CBPlate.adapter());
+        TypeRegistry.register(BlockType.POT, CBPot.adapter());
+        TypeRegistry.register(BlockType.SHORT_CHAIR, CBShortChair.adapter());
+        TypeRegistry.register(BlockType.SLAB, CBSlab.adapter());
+        TypeRegistry.register(BlockType.SLIM_SLAB, CBPaving.adapter());
+        TypeRegistry.register(BlockType.STAIRS, CBStair.adapter());
+        TypeRegistry.register(BlockType.TORCH, CBTorch.adapter());
+        TypeRegistry.register(BlockType.TRAP_DOOR, CBTrapdoor.adapter());
+        TypeRegistry.register(BlockType.TRUNK, CBTrunk.adapter());
+        TypeRegistry.register(BlockType.WALL, CBWall.adapter());
+        TypeRegistry.register(BlockType.WEB, CBWeb.adapter());
+    }
+
     public static CreativeBlock init(String modId, File configDir, Side side)
     {
+        JsonData.setProvider(new MCJsonDataProvider());
         INSTANCE.domain = modId;
         INSTANCE.config = Config.load(configDir, ID);
         INSTANCE.blocksDir = FileUtil.getDir(configDir.getParentFile(), "blockpacks");
         INSTANCE.proxy = side == Side.CLIENT ? new ClientProxy() : new ServerProxy();
+        INSTANCE.registerTypes();
         return INSTANCE;
     }
 
@@ -92,7 +147,7 @@ public final class CreativeBlock
 
     public static BlockNames blockNames()
     {
-        return INSTANCE.blockNames;
+        return BlockNames.get();
     }
 
     public static File blockpackDir()

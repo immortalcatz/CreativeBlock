@@ -36,7 +36,12 @@ import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.BlockPos;
+import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 /**
  * @author dags <dags@dags.me>
@@ -58,6 +63,12 @@ public abstract class CBSlab extends BlockSlab
             useNeighborBrightness = true;
         }
         setDefaultState(blockState);
+    }
+
+    @SideOnly(Side.CLIENT)
+    public Item getItem(World worldIn, BlockPos pos)
+    {
+        return Item.getItemFromBlock(this);
     }
 
     @Override
@@ -82,7 +93,6 @@ public abstract class CBSlab extends BlockSlab
     public final IBlockState getStateFromMeta(final int meta)
     {
         IBlockState blockState = this.getDefaultState();
-        // blockState = blockState.withProperty(VARIANT_PROPERTY, false);
         if (!this.isDouble())
         {
             EnumBlockHalf value = EnumBlockHalf.BOTTOM;

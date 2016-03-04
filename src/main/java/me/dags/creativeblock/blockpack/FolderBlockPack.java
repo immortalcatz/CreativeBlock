@@ -26,7 +26,7 @@ package me.dags.creativeblock.blockpack;
 
 import me.dags.creativeblock.CreativeBlock;
 import me.dags.creativeblock.definition.BlockDefinition;
-import me.dags.creativeblock.definition.JsonDefinition;
+import me.dags.creativeblock.definition.serialize.DefinitionSerializable;
 import me.dags.creativeblock.util.FileUtil;
 import me.dags.creativeblock.util.JsonUtil;
 import net.minecraftforge.fml.client.FMLFolderResourcePack;
@@ -71,10 +71,10 @@ public class FolderBlockPack extends BlockPack
         while (defIterator.hasNext())
         {
             File file = defIterator.next();
-            Optional<JsonDefinition> optional = JsonUtil.deserialize(file, JsonDefinition.class);
+            Optional<DefinitionSerializable> optional = JsonUtil.deserialize(file, DefinitionSerializable.class);
             if (optional.isPresent())
             {
-                JsonDefinition jsonDefinition = optional.get();
+                DefinitionSerializable jsonDefinition = optional.get();
                 jsonDefinition.tabId = getTabName(definitionsDir, file);
                 BlockDefinition definition = BlockDefinition.from(optional.get());
                 definitions.add(definition);

@@ -31,6 +31,11 @@ import me.dags.creativeblock.definition.BlockDefinition;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFence;
 import net.minecraft.block.material.Material;
+import net.minecraft.item.Item;
+import net.minecraft.util.BlockPos;
+import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 /**
  * @author dags <dags@dags.me>
@@ -41,6 +46,12 @@ public class CBFence extends BlockFence
     public CBFence(Material materialIn)
     {
         super(materialIn);
+    }
+
+    @SideOnly(Side.CLIENT)
+    public Item getItem(World worldIn, BlockPos pos)
+    {
+        return Item.getItemFromBlock(this);
     }
 
     public static BlockTypeAdapter adapter()

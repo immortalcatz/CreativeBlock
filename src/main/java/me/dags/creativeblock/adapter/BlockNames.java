@@ -30,17 +30,36 @@ package me.dags.creativeblock.adapter;
 
 public class BlockNames
 {
+    private static BlockNames blockNames = new BlockNames();
+
+    public static BlockNames get()
+    {
+        return BlockNames.blockNames;
+    }
+
+    public static void setBlockNames(BlockNames blockNames)
+    {
+        BlockNames.blockNames = blockNames;
+    }
+
+    public String anvil = "anvil";
     public String block = "block";
+    public String button = "button";
+    public String carpet = "carpet";
+    public String cauldron = "cauldron";
+    public String chair = "chair";
+    public String crops = "crops";
     public String directional = "directional";
     public String door = "door";
     public String double_plant = "double_plant";
     public String double_slab = "double_slab";
+    public String furnace = "furnace";
     public String fence = "fence";
     public String fence_gate = "fence_gate";
     public String ghost_block = "ghost_block";
     public String ghost_pane = "ghost_pane";
     public String glass = "glass";
-    public String glass_stained = "stained_glass";
+    public String glass_stained = "glass_stained";
     public String half_door = "half_door";
     public String ice = "ice";
     public String ladder = "ladder";
@@ -50,7 +69,12 @@ public class BlockNames
     public String pane = "pane";
     public String pane_stained = "pane_stained";
     public String paving = "paving";
+    public String piston_extension = "piston_extension";
+    public String plant = "plant";
+    public String plate = "plate";
     public String pot = "pot";
+    public String sensor = "sensor";
+    public String short_chair = "short_chair";
     public String slab = "slab";
     public String stairs = "stairs";
     public String torch = "torch";

@@ -24,8 +24,7 @@
 
 package me.dags.creativeblock.definition;
 
-import me.dags.creativeblock.block.*;
-import me.dags.creativeblock.adapter.BlockTypeAdapter;
+import me.dags.creativeblock.adapter.TypeRegistry;
 
 import java.util.HashSet;
 import java.util.Optional;
@@ -37,47 +36,56 @@ import java.util.Set;
 
 public enum BlockType
 {
-    BLOCK(CBBlock.adapter()),
-    DOOR(CBDoor.adapter()),
-    DOUBLE_PLANT(CBDoublePlant.adapter()),
-    FENCE(CBFence.adapter()),
-    FENCE_GATE(CBFenceGate.adapter()),
-    GHOST_BLOCK(CBGhostBlock.adapter()),
-    GHOST_PANE(CBGhostPane.adapter()),
-    GLASS(CBGlassBlock.adapter()),
-    GLASS_STAINED(CBGlassBlockStained.adapter()),
-    HALF_DOOR(CBHalfDoor.adapter()),
-    ICE(CBIce.adapter()),
-    LEAVES(CBLeaves.adapter()),
-    LADDER(CBLadder.adapter()),
-    LIGHT_WEB(CBLightWeb.adapter(), "_0", "_1", "_2"),
-    LOG(CBLog.adapter()),
-    PANE(CBPane.adapter()),
-    PANE_STAINED(CBPaneStained.adapter()),
-    POT(CBPot.adapter()),
-    PILLAR(CBDirectional.adapter()),
-    SLAB(CBSlab.adapter()),
-    SLIM_SLAB(CBPaving.adapter()),
-    STAIRS(CBStair.adapter()),
-    TORCH(CBTorch.adapter(), "_0", "_1", "_2"),
-    TRAP_DOOR(CBTrapdoor.adapter()),
-    TRUNK(CBTrunk.adapter()),
-    WALL(CBWall.adapter()),
-    WEB(CBWeb.adapter()),
+    ANVIL,
+    BLOCK,
+    BUTTON,
+    CARPET,
+    CAULDRON,
+    CHAIR,
+    CROPS,
+    DAY_SENSOR,
+    DOOR,
+    DOUBLE_PLANT,
+    FENCE,
+    FENCE_GATE,
+    FURNACE("", "_on"),
+    GHOST_BLOCK,
+    GHOST_PANE,
+    GLASS,
+    GLASS_STAINED,
+    HALF_DOOR,
+    ICE,
+    LEAVES,
+    LADDER,
+    LIGHT_WEB("_0", "_1", "_2"),
+    LOG,
+    PANE,
+    PANE_STAINED,
+    PISTON_EXTENSION,
+    PLANT,
+    PLATE,
+    POT,
+    PILLAR,
+    SHORT_CHAIR,
+    SLAB,
+    SLIM_SLAB,
+    STAIRS,
+    TORCH("_0", "_1", "_2"),
+    TRAP_DOOR,
+    TRUNK,
+    WALL,
+    WEB,
     ;
 
-    private final BlockTypeAdapter adapter;
     private final String[] suffixes;
 
-    private BlockType(BlockTypeAdapter adapter)
+    BlockType()
     {
-        this.adapter = adapter;
         this.suffixes = new String[]{""};
     }
 
-    private BlockType(BlockTypeAdapter adapter, String... suffixes)
+    BlockType(String... suffixes)
     {
-        this.adapter = adapter;
         this.suffixes = suffixes;
     }
 
@@ -88,7 +96,7 @@ public enum BlockType
 
     public void register(BlockDefinition definition)
     {
-        adapter.register(definition);
+        TypeRegistry.get(this).register(definition);
     }
 
     private static final Set<String> types = new HashSet<String>();

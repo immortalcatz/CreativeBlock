@@ -39,6 +39,8 @@ import java.util.*;
 
 public abstract class BlockRegistrar implements Proxy
 {
+    public static final Map<String, Integer> mappings = new HashMap<String, Integer>();
+
     private final Map<String, String> register = new HashMap<String, String>();
 
     @Override

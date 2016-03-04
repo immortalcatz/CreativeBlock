@@ -63,6 +63,12 @@ public class CBTrunk extends Block
         list.add(new ItemStack(itemIn, 1, 0));
     }
 
+    @SideOnly(Side.CLIENT)
+    public Item getItem(World worldIn, BlockPos pos)
+    {
+        return Item.getItemFromBlock(this);
+    }
+
     public boolean isFullCube()
     {
         return false;

@@ -22,8 +22,9 @@
  * THE SOFTWARE.
  */
 
-package me.dags.creativeblock.definition;
+package me.dags.creativeblock.definition.serialize;
 
+import me.dags.creativeblock.definition.BaseMaterial;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -31,9 +32,9 @@ import org.apache.logging.log4j.Logger;
  * @author dags <dags@dags.me>
  */
 
-public class JsonDefinition
+public class DefinitionSerializable
 {
-    private static final String FORMAT = "{name:%1s, base:%2s, tabId:%3s, types:%4s}";
+    private static final String LOG_FORMAT = "{name:%1s, base:%2s, tabId:%3s, types:%4s}";
     private static final Logger logger = LogManager.getLogger("JsonDefinition");
 
     public String name = "";
@@ -70,6 +71,28 @@ public class JsonDefinition
     @Override
     public String toString()
     {
-        return String.format(FORMAT, name, base, tabId, types);
+        return String.format(LOG_FORMAT, name, base, tabId, types);
+    }
+
+    public String toJson()
+    {
+        String indent = "  ";
+        String newLine = "\n";
+        StringBuilder sb = new StringBuilder();
+        sb.append("{");
+        sb.append(newLine).append(indent).append("\"name\": \"").append(name).append("\",");
+        sb.append(newLine).append(indent).append("\"base\": \"").append(base).append("\",");
+        sb.append(newLine).append(indent).append("\"types\": [");
+        for (int i = 0; i < types.length; i++)
+        {
+            sb.append(newLine).append(indent).append(indent).append('"').append(types[i]).append('"');
+            if (i < types.length - 1)
+            {
+                sb.append(',');
+            }
+        }
+        sb.append(newLine).append(indent).append(']');
+        sb.append(newLine).append('}');
+        return sb.toString();
     }
 }

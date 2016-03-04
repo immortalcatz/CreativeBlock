@@ -32,6 +32,11 @@ import me.dags.creativeblock.definition.BlockDefinition;
 import me.dags.creativeblock.item.CBItemHalfDoor;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.item.Item;
+import net.minecraft.util.BlockPos;
+import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 /**
  * @author dags <dags@dags.me>
@@ -42,6 +47,12 @@ public class CBHalfDoor extends CBDoor
     protected CBHalfDoor(Material materialIn)
     {
         super(materialIn);
+    }
+
+    @SideOnly(Side.CLIENT)
+    public Item getItem(World worldIn, BlockPos pos)
+    {
+        return Item.getItemFromBlock(this);
     }
 
     public static BlockTypeAdapter adapter()

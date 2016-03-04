@@ -31,8 +31,11 @@ import me.dags.creativeblock.definition.BlockDefinition;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockTorch;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.item.Item;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 /**
  * @author dags <dags@dags.me>
@@ -43,6 +46,12 @@ public class CBTorch extends BlockTorch
     public boolean canPlaceBlockAt(World worldIn, BlockPos pos)
     {
         return true;
+    }
+
+    @SideOnly(Side.CLIENT)
+    public Item getItem(World worldIn, BlockPos pos)
+    {
+        return Item.getItemFromBlock(this);
     }
 
     public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock)
@@ -68,5 +77,15 @@ public class CBTorch extends BlockTorch
                 super.registerBlock(b2, definition);
             }
         };
+    }
+
+    protected boolean onNeighborChangeInternal(World worldIn, BlockPos pos, IBlockState state)
+    {
+        return false;
+    }
+
+    protected boolean checkForDrop(World worldIn, BlockPos pos, IBlockState state)
+    {
+        return false;
     }
 }

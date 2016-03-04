@@ -55,7 +55,7 @@ public enum BaseMaterial
     private final Block base;
     private final float hardness;
 
-    private BaseMaterial(Block base, float hardness)
+    BaseMaterial(Block base, float hardness)
     {
         this.base = base;
         this.hardness = hardness;

@@ -58,18 +58,18 @@ public class _TODO
     #POT,
     #TORCH,
     #DOUBLE_PLANT,
+    #ANVIL,
+    #PLANT,
+    #CROPS,
+    #CAULDRON,
+    #PLATE,
+    #CARPET,
+    #BUTTON,
+    #FURNACE,
+    #DAY_SENSOR,
+    @PISTON_EXTENSION,
 
-    PISTON_EXTENSION,
-
-    PLATE,
-    ANVIL,
-    CARPET,
-    CAULDRON,
-    CROPS,
-    BUTTON,
-    FURNACE,
     CHAIR (slab),
-    DAY_SENSOR,
     SHORT_CHAIR,
     ;
     */

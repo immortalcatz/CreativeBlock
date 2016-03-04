@@ -54,6 +54,10 @@ public class NamingUtil
             capitalize = c == ' ' || c == '_' || c == '-';
             buf[i] = c;
         }
+        if (in.startsWith("tile"))
+        {
+            buf[0] = 't';
+        }
         return new String(buf);
     }
 }
