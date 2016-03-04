@@ -1,10 +1,19 @@
 # CreativeBlock
 Utility for 'dynamically' generating mod blocks from resourcepack-like containers
+
+#### Shortcuts
+- [Releases](https://github.com/dags-/CreativeBlock/releases)
+- [Issues](https://github.com/dags-/CreativeBlock/issues)
+- [Create a Blockpack](https://github.com/dags-/CreativeBlock#create-a-blockpack)
+  * [Selecting a workspace](https://github.com/dags-/CreativeBlock#1-selecting-a-workspace)
+  * [Creating block definitions](https://github.com/dags-/CreativeBlock#2-creating-block-definitions)
+  * [Finishing off](https://github.com/dags-/CreativeBlock#3-finishing-off)
+- [Tips](https://github.com/dags-/CreativeBlock#tips)
+
 ___
 #### Create a Blockpack
 CreativeBlock includes a built-in java app for creating blockpacks.  
 Double click the mod jar to launch.
-
 
 ##### 1. Selecting a workspace
 From the setup window you can select a directory in which to start creating your blockpack.  
