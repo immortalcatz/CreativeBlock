@@ -25,8 +25,7 @@
 package me.dags.creativeblock.definition.serialize;
 
 import me.dags.creativeblock.definition.BaseMaterial;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import me.dags.creativeblock.util.LogUtil;
 
 /**
  * @author dags <dags@dags.me>
@@ -35,7 +34,6 @@ import org.apache.logging.log4j.Logger;
 public class DefinitionSerializable
 {
     private static final String LOG_FORMAT = "{name:%1s, base:%2s, tabId:%3s, types:%4s}";
-    private static final Logger logger = LogManager.getLogger("JsonDefinition");
 
     public String name = "";
     public String base = "";
@@ -47,22 +45,22 @@ public class DefinitionSerializable
     {
         if (name.isEmpty())
         {
-            logger.warn("BlockDefinition Name cannot be empty!");
+            LogUtil.info("[WARN] BlockDefinition Name cannot be empty!");
             return false;
         }
         if (!BaseMaterial.has(base))
         {
-            logger.warn("BlockDefinition Sound does not exist!");
+            LogUtil.info("[WARN] BlockDefinition Sound does not exist!");
             return false;
         }
         if (types.length == 0)
         {
-            logger.warn("BlockDefinition no Types defined!");
+            LogUtil.info("[WARN] BlockDefinition no Types defined!");
             return false;
         }
         if (tabId.isEmpty())
         {
-            logger.warn("BlockDefinition TabId cannot be empty!");
+            LogUtil.info("[WARN] BlockDefinition TabId cannot be empty!");
             return false;
         }
         return true;

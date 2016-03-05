@@ -25,8 +25,8 @@
 package me.dags.creativeblock.util;
 
 import me.dags.creativeblock.Config;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import me.dags.creativeblock.util.logging.CBLogger;
+import me.dags.creativeblock.util.logging.DefaultLogger;
 
 /**
  * @author dags <dags@dags.me>
@@ -34,9 +34,9 @@ import org.apache.logging.log4j.Logger;
 
 public class LogUtil
 {
-    private final Logger logger = LogManager.getLogger("CreativeBlock");
     private static final LogUtil instance = new LogUtil();
 
+    private CBLogger logger = new DefaultLogger();
     private boolean logIo = true;
     private boolean logRegisters = true;
     private boolean logBlockpacks = true;
@@ -44,16 +44,26 @@ public class LogUtil
     private LogUtil()
     {}
 
+    private static LogUtil get()
+    {
+        return instance;
+    }
+
+    public static void setLogger(CBLogger logger)
+    {
+        get().logger = logger;
+    }
+
     public static void setOptions(Config config)
     {
-        instance.logIo = config.logIoOperations;
-        instance.logRegisters = config.logRegisterOperations;
-        instance.logBlockpacks = config.logBlockpackOperations;
+        get().logIo = config.logIoOperations;
+        get().logRegisters = config.logRegisterOperations;
+        get().logBlockpacks = config.logBlockpackOperations;
     }
 
     public static void info(String message, Object... args)
     {
-        instance.logger.info(message, args);
+        get().logger.info(message, args);
     }
 
     public static void info(Class<?> caller, String message, Object... args)
@@ -68,16 +78,16 @@ public class LogUtil
 
     public static void register(Object caller, String message, Object... args)
     {
-        if (instance.logRegisters) info(caller, message, args);
+        if (get().logRegisters) info(caller, message, args);
     }
 
     public static void io(Object caller, String message, Object... args)
     {
-        if (instance.logIo) info(caller, message, args);
+        if (get().logIo) info(caller, message, args);
     }
 
     public static void blockpack(Object caller, String message, Object... args)
     {
-        if (instance.logBlockpacks) info(caller, message, args);
+        if (get().logBlockpacks) info(caller, message, args);
     }
 }

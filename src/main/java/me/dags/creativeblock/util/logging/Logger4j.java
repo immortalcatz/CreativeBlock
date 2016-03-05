@@ -22,54 +22,22 @@
  * THE SOFTWARE.
  */
 
-package me.dags.creativeblock.app.data;
+package me.dags.creativeblock.util.logging;
 
-import me.dags.creativeblock.app.conversion.replacefunction.ReplaceFunction;
-import me.dags.creativeblock.util.dataprovider.DefaultDataProvider;
-import me.dags.creativeblock.util.dataprovider.DataProvider;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * @author dags <dags@dags.me>
  */
 
-public class JsonData
+public class Logger4j implements CBLogger
 {
-    private static DataProvider provider = new DefaultDataProvider();
+    private final Logger logger = LogManager.getLogger("CreativeBlock");
 
-    private final String data;
-    private final String suffix;
-
-    public JsonData(String data, String suffix)
+    @Override
+    public void info(String message, Object... args)
     {
-        this.data = data;
-        this.suffix = suffix;
-    }
-
-    public String data()
-    {
-        return data;
-    }
-
-    public String suffix()
-    {
-        return suffix;
-    }
-
-    public <T> String replace(T info, ReplaceFunction<T> function)
-    {
-        return function.replace(data, info);
-    }
-
-    public static JsonData of(String path, String suffix)
-    {
-        return provider.of(path, suffix);
-    }
-
-    public static void setProvider(DataProvider provider)
-    {
-        if (provider != null)
-        {
-            JsonData.provider = provider;
-        }
+        logger.info(message, args);
     }
 }

@@ -22,54 +22,15 @@
  * THE SOFTWARE.
  */
 
-package me.dags.creativeblock.app.data;
+package me.dags.creativeblock.util.dataprovider;
 
-import me.dags.creativeblock.app.conversion.replacefunction.ReplaceFunction;
-import me.dags.creativeblock.util.dataprovider.DefaultDataProvider;
-import me.dags.creativeblock.util.dataprovider.DataProvider;
+import me.dags.creativeblock.app.data.JsonData;
 
 /**
  * @author dags <dags@dags.me>
  */
 
-public class JsonData
+public interface DataProvider
 {
-    private static DataProvider provider = new DefaultDataProvider();
-
-    private final String data;
-    private final String suffix;
-
-    public JsonData(String data, String suffix)
-    {
-        this.data = data;
-        this.suffix = suffix;
-    }
-
-    public String data()
-    {
-        return data;
-    }
-
-    public String suffix()
-    {
-        return suffix;
-    }
-
-    public <T> String replace(T info, ReplaceFunction<T> function)
-    {
-        return function.replace(data, info);
-    }
-
-    public static JsonData of(String path, String suffix)
-    {
-        return provider.of(path, suffix);
-    }
-
-    public static void setProvider(DataProvider provider)
-    {
-        if (provider != null)
-        {
-            JsonData.provider = provider;
-        }
-    }
+    JsonData of(String location, String suffix);
 }

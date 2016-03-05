@@ -81,7 +81,6 @@ public class CBLeaves extends BlockLeavesBase
             @Override
             public void createBlock(String transformedName, BlockDefinition definition)
             {
-                System.out.println("!");
                 Block block = new CBLeaves(definition.material.material());
                 super.setAttributes(block, transformedName, definition);
                 super.registerBlock(block, definition);

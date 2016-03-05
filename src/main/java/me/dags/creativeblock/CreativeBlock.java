@@ -24,16 +24,18 @@
 
 package me.dags.creativeblock;
 
-import me.dags.creativeblock.app.util.MCJsonDataProvider;
 import me.dags.creativeblock.adapter.BlockNames;
 import me.dags.creativeblock.adapter.TypeRegistry;
 import me.dags.creativeblock.app.data.JsonData;
+import me.dags.creativeblock.util.dataprovider.ResourceDataProvider;
 import me.dags.creativeblock.block.*;
 import me.dags.creativeblock.blockpack.BlockPack;
 import me.dags.creativeblock.definition.BlockDefinition;
 import me.dags.creativeblock.definition.BlockType;
 import me.dags.creativeblock.proxy.*;
 import me.dags.creativeblock.util.FileUtil;
+import me.dags.creativeblock.util.LogUtil;
+import me.dags.creativeblock.util.logging.Logger4j;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -111,7 +113,8 @@ public final class CreativeBlock
 
     public static CreativeBlock init(String modId, File configDir, Side side)
     {
-        JsonData.setProvider(new MCJsonDataProvider());
+        LogUtil.setLogger(new Logger4j());
+        JsonData.setProvider(new ResourceDataProvider());
         INSTANCE.domain = modId;
         INSTANCE.config = Config.load(configDir, ID);
         INSTANCE.blocksDir = FileUtil.getDir(configDir.getParentFile(), "blockpacks");

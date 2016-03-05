@@ -56,7 +56,7 @@ public class EditorPane extends JPanel
     private final int itemWidth = windowWidth - labelWidth;
     private final int lineHeight = 25;
 
-    final Dimension labelDims = new Dimension(labelWidth, lineHeight);
+    private final Dimension labelDims = new Dimension(labelWidth, lineHeight);
 
     private final JTextField nameField = new JTextField();
     private final JTextField categoryField = new JTextField();
@@ -394,6 +394,7 @@ public class EditorPane extends JPanel
                     }
                     catch (InterruptedException e)
                     {
+                        LogUtil.info("[ERROR] " + e.getMessage());
                         e.printStackTrace();
                     }
                 }
@@ -437,29 +438,28 @@ public class EditorPane extends JPanel
     private ActionListener create()
     {
         return e -> {
-            String name = nameField.getText().toLowerCase().replace(" ","_").replace("-","_");
-
-            DefinitionSerializable serializable = new DefinitionSerializable();
-            serializable.name = name.toLowerCase();
-            serializable.base = soundCombo.getSelectedItem().toString();
-            List<String> types = typeCheckBoxes.stream().filter(AbstractButton::isSelected).map(JCheckBox::getText).collect(Collectors.toList());
-            serializable.types = types.toArray(new String[types.size()]);
-            serializable.file = serializable.name + ".json";
-
-            File outDir = Utils.getDir(createDirs, definitionsRoot, categoryField.getText().toLowerCase().split("/"));
-            File outFile = new File(outDir, serializable.file);
-            Utils.toFile(serializable.toJson(), outFile);
-
-            TextureWrapper wrapper = new TextureWrapper();
-            wrapper.bottom = bottomField.getText().toLowerCase();
-            wrapper.top = topField.getText().toLowerCase();
-            wrapper.sides = sideField.getText().toLowerCase();
-            wrapper.normal = defaultField.getText().toLowerCase();
-
-            System.out.println(wrapper.getDefault());
 
             try
             {
+                String name = nameField.getText().toLowerCase().replace(" ", "_").replace("-", "_");
+
+                DefinitionSerializable serializable = new DefinitionSerializable();
+                serializable.name = name.toLowerCase();
+                serializable.base = soundCombo.getSelectedItem().toString();
+                List<String> types = typeCheckBoxes.stream().filter(AbstractButton::isSelected).map(JCheckBox::getText).collect(Collectors.toList());
+                serializable.types = types.toArray(new String[types.size()]);
+                serializable.file = serializable.name + ".json";
+
+                File outDir = Utils.getDir(createDirs, definitionsRoot, categoryField.getText().toLowerCase().split("/"));
+                File outFile = new File(outDir, serializable.file);
+                Utils.toFile(serializable.toJson(), outFile);
+
+                TextureWrapper wrapper = new TextureWrapper();
+                wrapper.bottom = bottomField.getText().toLowerCase();
+                wrapper.top = topField.getText().toLowerCase();
+                wrapper.sides = sideField.getText().toLowerCase();
+                wrapper.normal = defaultField.getText().toLowerCase();
+
                 for (String s : serializable.types)
                 {
                     Optional<BlockType> optional = BlockType.from(s);
@@ -479,6 +479,7 @@ public class EditorPane extends JPanel
             }
             catch (Throwable t)
             {
+                LogUtil.info("[WARN] " + t.getMessage());
                 t.printStackTrace();
             }
         };
