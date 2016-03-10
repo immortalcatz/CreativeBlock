@@ -3,7 +3,7 @@ Utility for 'dynamically' generating mod blocks from resourcepack-like container
 
 ## Shortcuts
 - [Releases](https://github.com/dags-/CreativeBlock/releases)
-- [Implentations](https://github.com/dags-/ArdaCraftBlocks/tree/1.8.9)
+- [Implementations](https://github.com/dags-/ArdaCraftBlocks/tree/1.8.9)
 - [Issues](https://github.com/dags-/CreativeBlock/issues)
 - [Create a Blockpack](https://github.com/dags-/CreativeBlock#create-a-blockpack)
   * [Selecting a workspace](https://github.com/dags-/CreativeBlock#1-selecting-a-workspace)
