@@ -61,9 +61,9 @@ public class CBFurnace extends BlockFurnace
         return Item.getItemFromBlock(this);
     }
 
-    public static BlockTypeAdapter adapter()
+    public static BlockTypeAdapter adapter(CreativeBlock creativeBlock)
     {
-        return new BlockAdapter(CreativeBlock.blockNames().furnace)
+        return new BlockAdapter(creativeBlock, creativeBlock.blockNames().furnace)
         {
             @Override
             public void createBlock(String transformedName, BlockDefinition definition)

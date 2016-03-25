@@ -24,11 +24,14 @@
 
 package me.dags.creativeblock.app.conversion;
 
+import me.dags.creativeblock.app.data.Blocks;
 import me.dags.creativeblock.app.data.Models;
 import me.dags.creativeblock.definition.BlockType;
-import me.dags.creativeblock.app.data.Blocks;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.EnumMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author dags <dags@dags.me>
@@ -36,8 +39,8 @@ import java.util.*;
 
 public class Conversions
 {
-    private static final Map<BlockType, List<Conversion>> conversions = new EnumMap<BlockType, List<Conversion>>(BlockType.class);
-    private static final List<Conversion> EMPTY = new ArrayList<Conversion>();
+    private static final Map<BlockType, List<Conversion>> conversions = new EnumMap<>(BlockType.class);
+    private static final List<Conversion> EMPTY = new ArrayList<>();
 
     static
     {
@@ -55,7 +58,7 @@ public class Conversions
         add(BlockType.FENCE_GATE, Conversion.of(Blocks.fence_gate, Models.fence_gate_closed, Models.fence_gate_open, Models.wall_gate_closed, Models.wall_gate_open));
         add(BlockType.FURNACE, Conversion.of(Blocks.furnace, Models.furnace));
         add(BlockType.GHOST_BLOCK, Conversion.of(Blocks.ghost_block, Models.ghost_block));
-        add(BlockType.GHOST_PANE, Conversion.of(Blocks.ghost_pane, Models.ghost_pane_n, Models.ghost_pane_ne, Models.ghost_pane_new, Models.ghost_pane_ns, Models.ghost_pane_nse, Models.ghost_pane_nsew, Models.ghost_pane_nsw, Models.ghost_pane_nw, Models.ghost_pane_s, Models.ghost_pane_se, Models.ghost_pane_sew, Models.ghost_pane_sw));
+        add(BlockType.GHOST_PANE, Conversion.of(Blocks.ghost_pane, Models.ghost_pane_noside, Models.ghost_pane_noside_alt, Models.ghost_pane_post, Models.ghost_pane_side, Models.ghost_pane_side_alt));
         add(BlockType.GLASS, Conversion.of(Blocks.glass, Models.glass));
         add(BlockType.GLASS_STAINED, Conversion.of(Blocks.glass_stained, Models.glass_stained));
         add(BlockType.HALF_DOOR, Conversion.of(Blocks.half_door, Models.half_door_bottom, Models.half_door_bottom_rh));
@@ -64,8 +67,8 @@ public class Conversions
         add(BlockType.LEAVES, Conversion.of(Blocks.leaves, Models.leaves));
         add(BlockType.LIGHT_WEB, Conversion.of(Blocks.light_web, Models.light_web));
         add(BlockType.LOG, Conversion.of(Blocks.log, Models.directional_vertical, Models.directional_horizontal, Models.directional_none));
-        add(BlockType.PANE, Conversion.of(Blocks.pane, Models.pane_n, Models.pane_ne, Models.pane_new, Models.pane_ns, Models.pane_nse, Models.pane_nsew, Models.pane_nsw, Models.pane_nw, Models.pane_s, Models.pane_se, Models.pane_sew, Models.pane_sw));
-        add(BlockType.PANE_STAINED, Conversion.of(Blocks.pane_stained, Models.pane_stained_n, Models.pane_stained_ne, Models.pane_stained_new, Models.pane_stained_ns, Models.pane_stained_nse, Models.pane_stained_nsew, Models.pane_stained_nsw, Models.pane_stained_nw, Models.pane_stained_s, Models.pane_stained_se, Models.pane_stained_sew, Models.pane_stained_sw));
+        add(BlockType.PANE, Conversion.of(Blocks.pane, Models.pane_noside, Models.pane_noside_alt, Models.pane_post, Models.pane_side, Models.pane_side_alt));
+        add(BlockType.PANE_STAINED, Conversion.of(Blocks.pane_stained, Models.pane_stained_noside, Models.pane_stained_noside_alt, Models.pane_stained_post, Models.pane_stained_side, Models.pane_stained_side_alt));
         add(BlockType.PILLAR, Conversion.of(Blocks.directional, Models.directional_vertical, Models.directional_horizontal, Models.directional_none));
         add(BlockType.PLANT, Conversion.of(Blocks.plant, Models.plant));
         add(BlockType.PLATE, Conversion.of(Blocks.plate, Models.plate));

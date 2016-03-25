@@ -220,9 +220,9 @@ public class CBDoublePlant extends BlockBush
         }
     }
 
-    public static BlockTypeAdapter adapter()
+    public static BlockTypeAdapter adapter(CreativeBlock creativeBlock)
     {
-        return new BlockAdapter(CreativeBlock.blockNames().double_plant)
+        return new BlockAdapter(creativeBlock, creativeBlock.blockNames().double_plant)
         {
             @Override
             public void createBlock(String transformedName, BlockDefinition definition)
@@ -230,7 +230,7 @@ public class CBDoublePlant extends BlockBush
                 Block block = new CBDoublePlant();
                 super.setAttributes(block, transformedName, definition);
 
-                CreativeBlock.registrar().registerBlock(block, CBItemPlant.class, true);
+                creativeBlock.registrar().registerBlock(block, CBItemPlant.class, true);
                 block.setCreativeTab(Tabs.tabFor(definition.tabId, block));
             }
         };

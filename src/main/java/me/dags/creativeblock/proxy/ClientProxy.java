@@ -24,6 +24,7 @@
 
 package me.dags.creativeblock.proxy;
 
+import me.dags.creativeblock.CreativeBlock;
 import me.dags.creativeblock.blockpack.LangPack;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -40,6 +41,11 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 public class ClientProxy extends BlockRegistrar
 {
+    public ClientProxy(CreativeBlock creativeBlock)
+    {
+        super(creativeBlock);
+    }
+
     @Override
     public void preInit(FMLPreInitializationEvent event)
     {}
@@ -47,7 +53,7 @@ public class ClientProxy extends BlockRegistrar
     @Override
     public void postInit(FMLPostInitializationEvent event)
     {
-        LangPack langPack = new LangPack();
+        LangPack langPack = new LangPack(creativeBlock);
         FMLCommonHandler.instance().addModToResourcePack(langPack);
     }
 

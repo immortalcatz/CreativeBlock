@@ -63,9 +63,9 @@ public class CBIce extends BlockIce
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
     {}
 
-    public static BlockTypeAdapter adapter()
+    public static BlockTypeAdapter adapter(CreativeBlock creativeBlock)
     {
-        return new BlockAdapter(CreativeBlock.blockNames().ice)
+        return new BlockAdapter(creativeBlock, creativeBlock.blockNames().ice)
         {
             @Override
             public void createBlock(String transformedName, BlockDefinition definition)

@@ -111,9 +111,9 @@ public class CBTrunk extends Block
         return new BlockState(this, new IProperty[0]);
     }
 
-    public static BlockTypeAdapter adapter()
+    public static BlockTypeAdapter adapter(CreativeBlock creativeBlock)
     {
-        return new BlockAdapter(CreativeBlock.blockNames().trunk)
+        return new BlockAdapter(creativeBlock, creativeBlock.blockNames().trunk)
         {
             @Override
             public void createBlock(String transformedName, BlockDefinition definition)

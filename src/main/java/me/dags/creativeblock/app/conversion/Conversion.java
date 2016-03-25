@@ -24,13 +24,13 @@
 
 package me.dags.creativeblock.app.conversion;
 
-import me.dags.creativeblock.app.data.JsonData;
-import me.dags.creativeblock.app.data.Models;
 import me.dags.creativeblock.app.conversion.replacefunction.ReplaceFunction;
 import me.dags.creativeblock.app.conversion.replacefunction.StringReplacer;
 import me.dags.creativeblock.app.conversion.replacefunction.TextureReplacer;
-import me.ardacraft.acblocks.legacy.TextureWrapper;
+import me.dags.creativeblock.app.data.JsonData;
+import me.dags.creativeblock.app.data.Models;
 import me.dags.creativeblock.definition.BlockType;
+import me.dags.creativeblock.definition.BlockTextures;
 import me.dags.creativeblock.util.FileUtil;
 import me.dags.creativeblock.util.LogUtil;
 
@@ -89,29 +89,27 @@ public class Conversion
         for (String suff : blockType.suffixes())
         {
             String fileName = name + blockState.suffix() + suff;
-            String content = blockState.replace(domain + ":" + name.toLowerCase(), blockStateEdits);
+            String content = blockState.replace(domain, domain + ":" + name.toLowerCase(), blockStateEdits);
 
             writeFile(new File(outDir, fileName + ".json"), content);
         }
     }
 
-    public void writeModelsFor(String domain, BlockType blockType, File root, String name, TextureWrapper textures) throws IOException
+    public void writeModelsFor(String domain, BlockType blockType, File root, String name, BlockTextures textures) throws IOException
     {
         File blockDir = FileUtil.getDir(root, "models", "block");
         File itemDir = FileUtil.getDir(root, "models", "item");
 
-        modelEdits.domain = domain;
-
         for (JsonData data : models)
         {
             String bModelName = (name + data.suffix()).toLowerCase();
-            String blockModel = data.replace(textures, modelEdits);
+            String blockModel = data.replace(domain, textures, modelEdits);
             writeFile(new File(blockDir, bModelName + ".json"), blockModel);
 
             for (String suff : blockType.suffixes())
             {
                 String iModelName = name + blockState.suffix() + suff;
-                String itemModel = item.replace(domain + ":block/" + bModelName, itemReplacer);
+                String itemModel = item.replace(domain, domain + ":block/" + bModelName, itemReplacer);
                 writeFile(new File(itemDir, iModelName + ".json"), itemModel);
             }
         }

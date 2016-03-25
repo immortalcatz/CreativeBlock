@@ -53,9 +53,9 @@ public class CBLog extends CBDirectional
         super(material);
     }
 
-    public static BlockTypeAdapter adapter()
+    public static BlockTypeAdapter adapter(CreativeBlock creativeBlock)
     {
-        return new BlockAdapter(CreativeBlock.blockNames().log)
+        return new BlockAdapter(creativeBlock, creativeBlock.blockNames().log)
         {
             @Override
             public void createBlock(String transformedName, BlockDefinition definition)

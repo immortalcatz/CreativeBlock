@@ -46,9 +46,12 @@ import java.util.Optional;
 
 public class FolderBlockPack extends BlockPack
 {
-    public FolderBlockPack(File file)
+    private final String domain;
+
+    public FolderBlockPack(CreativeBlock creativeBlock, File file)
     {
         super(file);
+        this.domain = creativeBlock.domain();
     }
 
     public String getTabName(File definitions, File file)
@@ -64,8 +67,8 @@ public class FolderBlockPack extends BlockPack
     @Override
     public List<BlockDefinition> getDefinitions()
     {
-        List<BlockDefinition> definitions = new ArrayList<BlockDefinition>();
-        final File definitionsDir = FileUtil.getDir(this.getSource(), "assets", CreativeBlock.domain(), "definitions");
+        List<BlockDefinition> definitions = new ArrayList<>();
+        final File definitionsDir = FileUtil.getDir(this.getSource(), "assets", domain, "definitions");
 
         Iterator<File> defIterator = FileUtils.iterateFilesAndDirs(definitionsDir, definitionsFiler(), TrueFileFilter.INSTANCE);
         while (defIterator.hasNext())

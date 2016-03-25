@@ -157,9 +157,9 @@ public abstract class CBSlab extends BlockSlab
         }
     }
 
-    public static BlockTypeAdapter adapter()
+    public static BlockTypeAdapter adapter(CreativeBlock creativeBlock)
     {
-        return new BlockAdapter(CreativeBlock.blockNames().slab)
+        return new BlockAdapter(creativeBlock, creativeBlock.blockNames().slab)
         {
             @Override
             public void createBlock(String transformedName, BlockDefinition definition)
@@ -168,10 +168,10 @@ public abstract class CBSlab extends BlockSlab
                 CBSlab doubleSlab = new CBSlab.Double(definition.material.material());
 
                 super.setAttributes(halfSlab, transformedName, definition);
-                super.setAttributes(doubleSlab, definition.name + "_" + CreativeBlock.blockNames().double_slab, definition);
+                super.setAttributes(doubleSlab, definition.name + "_" + creativeBlock.blockNames().double_slab, definition);
                 super.registerBlock(doubleSlab, false, definition);
 
-                CreativeBlock.registrar().registerBlock(halfSlab, CBItemSlab.class, true, halfSlab, doubleSlab);
+                creativeBlock.registrar().registerBlock(halfSlab, CBItemSlab.class, true, halfSlab, doubleSlab);
                 halfSlab.setCreativeTab(Tabs.tabFor(definition.tabId, halfSlab));
             }
         };

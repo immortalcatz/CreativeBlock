@@ -24,6 +24,7 @@
 
 package me.dags.creativeblock.proxy;
 
+import me.dags.creativeblock.CreativeBlock;
 import net.minecraft.block.Block;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -34,6 +35,11 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 public class ServerProxy extends BlockRegistrar
 {
+    public ServerProxy(CreativeBlock creativeBlock)
+    {
+        super(creativeBlock);
+    }
+
     @Override
     public void preInit(FMLPreInitializationEvent event)
     {}

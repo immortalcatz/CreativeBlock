@@ -27,6 +27,8 @@ package me.dags.creativeblock.definition.serialize;
 import me.dags.creativeblock.definition.BaseMaterial;
 import me.dags.creativeblock.util.LogUtil;
 
+import java.util.Arrays;
+
 /**
  * @author dags <dags@dags.me>
  */
@@ -69,7 +71,7 @@ public class DefinitionSerializable
     @Override
     public String toString()
     {
-        return String.format(LOG_FORMAT, name, base, tabId, types);
+        return String.format(LOG_FORMAT, name, base, tabId, Arrays.toString(types));
     }
 
     public String toJson()

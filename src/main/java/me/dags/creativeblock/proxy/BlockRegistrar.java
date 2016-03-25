@@ -41,7 +41,13 @@ public abstract class BlockRegistrar implements Proxy
 {
     public static final Map<String, Integer> mappings = new HashMap<String, Integer>();
 
-    private final Map<String, String> register = new HashMap<String, String>();
+    private final Map<String, String> register = new HashMap<>();
+    protected final CreativeBlock creativeBlock;
+
+    protected BlockRegistrar(CreativeBlock creativeBlock)
+    {
+        this.creativeBlock = creativeBlock;
+    }
 
     @Override
     public BlockRegistrar getRegistrar()
@@ -79,11 +85,11 @@ public abstract class BlockRegistrar implements Proxy
 
     public List<String> getBlockNames()
     {
-        List<String> blocks = new ArrayList<String>();
+        List<String> blocks = new ArrayList<>();
         for (Map.Entry<String, String> e : register.entrySet())
         {
             String key = e.getKey() + ".name";
-            String name = NamingUtil.langFormat(e.getValue().substring(CreativeBlock.domain().length() + 1));
+            String name = NamingUtil.langFormat(e.getValue().substring(creativeBlock.domain().length() + 1));
             blocks.add(key + "=" + name);
         }
         Collections.sort(blocks);

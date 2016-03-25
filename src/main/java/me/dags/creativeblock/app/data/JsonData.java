@@ -25,8 +25,8 @@
 package me.dags.creativeblock.app.data;
 
 import me.dags.creativeblock.app.conversion.replacefunction.ReplaceFunction;
-import me.dags.creativeblock.util.dataprovider.DefaultDataProvider;
 import me.dags.creativeblock.util.dataprovider.DataProvider;
+import me.dags.creativeblock.util.dataprovider.DefaultDataProvider;
 
 /**
  * @author dags <dags@dags.me>
@@ -55,9 +55,9 @@ public class JsonData
         return suffix;
     }
 
-    public <T> String replace(T info, ReplaceFunction<T> function)
+    public <T> String replace(String domain, T info, ReplaceFunction<T> function)
     {
-        return function.replace(data, info);
+        return function.replace(domain, data, info);
     }
 
     public static JsonData of(String path, String suffix)

@@ -54,9 +54,9 @@ public class CBPane extends BlockPane
         super(materialIn, true);
     }
 
-    public static BlockTypeAdapter adapter()
+    public static BlockTypeAdapter adapter(CreativeBlock creativeBlock)
     {
-        return new BlockAdapter(CreativeBlock.blockNames().pane)
+        return new BlockAdapter(creativeBlock, creativeBlock.blockNames().pane)
         {
             @Override
             public void createBlock(String transformedName, BlockDefinition definition)

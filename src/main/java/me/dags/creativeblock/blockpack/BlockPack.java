@@ -25,6 +25,7 @@
 package me.dags.creativeblock.blockpack;
 
 import com.google.common.eventbus.EventBus;
+import me.dags.creativeblock.CreativeBlock;
 import me.dags.creativeblock.definition.BlockDefinition;
 import me.dags.creativeblock.util.LogUtil;
 import net.minecraftforge.fml.common.LoadController;
@@ -241,7 +242,7 @@ public abstract class BlockPack implements ModContainer, Versioned<BlockPack>
 
     public abstract List<BlockDefinition> getDefinitions();
 
-    public static List<BlockPack> getBlockPacks(File blockpackDir)
+    public static List<BlockPack> getBlockPacks(CreativeBlock creativeBlock, File blockpackDir)
     {
         LogUtil.blockpack(BlockPack.class, "Scanning {} for blockpacks...", blockpackDir);
         File[] files = blockpackDir.listFiles();
@@ -258,11 +259,11 @@ public abstract class BlockPack implements ModContainer, Versioned<BlockPack>
                 BlockPack pack = null;
                 if (!file.getName().endsWith(".zip") && file.isDirectory())
                 {
-                    pack = new FolderBlockPack(file);
+                    pack = new FolderBlockPack(creativeBlock, file);
                 }
                 else if (file.getName().endsWith(".zip") && file.isFile())
                 {
-                    pack = new FileBlockPack(file);
+                    pack = new FileBlockPack(creativeBlock, file);
                 }
                 if (pack != null)
                 {

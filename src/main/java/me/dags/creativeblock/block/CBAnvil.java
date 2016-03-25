@@ -83,9 +83,9 @@ public class CBAnvil extends BlockAnvil
     public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
     {}
 
-    public static BlockTypeAdapter adapter()
+    public static BlockTypeAdapter adapter(CreativeBlock creativeBlock)
     {
-        return new BlockAdapter(CreativeBlock.blockNames().anvil)
+        return new BlockAdapter(creativeBlock, creativeBlock.blockNames().anvil)
         {
             @Override
             public void createBlock(String transformedName, BlockDefinition definition)

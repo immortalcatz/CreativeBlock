@@ -91,9 +91,9 @@ public class CBButton extends BlockButton
     public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn)
     {}
 
-    public static BlockTypeAdapter adapter()
+    public static BlockTypeAdapter adapter(CreativeBlock creativeBlock)
     {
-        return new BlockAdapter(CreativeBlock.blockNames().button)
+        return new BlockAdapter(creativeBlock, creativeBlock.blockNames().button)
         {
             @Override
             public void createBlock(String transformedName, BlockDefinition definition)

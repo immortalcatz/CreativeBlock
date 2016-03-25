@@ -24,13 +24,13 @@
 
 package me.dags.creativeblock.app;
 
-import me.ardacraft.acblocks.legacy.TextureWrapper;
 import me.dags.creativeblock.app.conversion.Conversion;
 import me.dags.creativeblock.app.conversion.Conversions;
 import me.dags.creativeblock.app.json.JObject;
 import me.dags.creativeblock.app.util.UpdateListener;
 import me.dags.creativeblock.app.util.Utils;
 import me.dags.creativeblock.definition.BlockType;
+import me.dags.creativeblock.definition.BlockTextures;
 import me.dags.creativeblock.definition.serialize.DefinitionSerializable;
 import me.dags.creativeblock.definition.serialize.MaterialSerializable;
 import me.dags.creativeblock.util.LogUtil;
@@ -51,8 +51,8 @@ public class EditorPane extends JPanel
     private final String domain;
 
     private final boolean createDirs = true;
-    private final int windowWidth = 375;
-    private final int labelWidth = 50;
+    private final int windowWidth = 400;
+    private final int labelWidth = 80;
     private final int itemWidth = windowWidth - labelWidth;
     private final int lineHeight = 25;
 
@@ -454,11 +454,10 @@ public class EditorPane extends JPanel
                 File outFile = new File(outDir, serializable.file);
                 Utils.toFile(serializable.toJson(), outFile);
 
-                TextureWrapper wrapper = new TextureWrapper();
-                wrapper.bottom = bottomField.getText().toLowerCase();
-                wrapper.top = topField.getText().toLowerCase();
-                wrapper.sides = sideField.getText().toLowerCase();
-                wrapper.normal = defaultField.getText().toLowerCase();
+                BlockTextures textures = new BlockTextures(defaultField.getText().toLowerCase(),
+                        topField.getText().toLowerCase(),
+                        bottomField.getText().toLowerCase(),
+                        sideField.getText().toLowerCase());
 
                 for (String s : serializable.types)
                 {
@@ -470,7 +469,7 @@ public class EditorPane extends JPanel
                         for (Conversion c : conversions)
                         {
                             c.writeStateFor(domain, type, rootDir, name);
-                            c.writeModelsFor(domain, type, rootDir, name, wrapper);
+                            c.writeModelsFor(domain, type, rootDir, name, textures);
                         }
                         continue;
                     }

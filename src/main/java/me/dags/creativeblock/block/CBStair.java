@@ -54,9 +54,9 @@ public class CBStair extends BlockStairs
         return Item.getItemFromBlock(this);
     }
 
-    public static BlockTypeAdapter adapter()
+    public static BlockTypeAdapter adapter(CreativeBlock creativeBlock)
     {
-        return new BlockAdapter(CreativeBlock.blockNames().stairs)
+        return new BlockAdapter(creativeBlock, creativeBlock.blockNames().stairs)
         {
             @Override
             public void createBlock(String transformedName, BlockDefinition definition)

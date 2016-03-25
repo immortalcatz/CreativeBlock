@@ -80,9 +80,9 @@ public class CBDoor extends BlockDoor
         super.onNeighborBlockChange(worldIn, pos, state, neighborBlock);
     }
 
-    public static BlockTypeAdapter adapter()
+    public static BlockTypeAdapter adapter(CreativeBlock creativeBlock)
     {
-        return new BlockAdapter(CreativeBlock.blockNames().door)
+        return new BlockAdapter(creativeBlock, creativeBlock.blockNames().door)
         {
             @Override
             public void createBlock(String transformedName, BlockDefinition definition)
@@ -90,7 +90,7 @@ public class CBDoor extends BlockDoor
                 Block block = new CBDoor(definition.material.material());
                 super.setAttributes(block, transformedName, definition);
 
-                CreativeBlock.registrar().registerBlock(block, CBItemDoor.class, true);
+                creativeBlock.registrar().registerBlock(block, CBItemDoor.class, true);
                 block.setCreativeTab(Tabs.tabFor(definition.tabId, block));
             }
         };

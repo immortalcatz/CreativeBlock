@@ -24,23 +24,22 @@
 
 package me.dags.creativeblock.app.conversion.replacefunction;
 
-import me.ardacraft.acblocks.legacy.TextureWrapper;
+import me.dags.creativeblock.definition.BlockTextures;
 
 /**
  * @author dags <dags@dags.me>
  */
 
-public class TextureReplacer implements ReplaceFunction<TextureWrapper>
+public class TextureReplacer implements ReplaceFunction<BlockTextures>
 {
     private static final String[] faces = {"#down", "#bottom", "#up", "#top", "#side", "#all", "#north", "#east", "#south", "#west"};
-    public String domain = "creativeblock";
 
     @Override
-    public String replace(String data, TextureWrapper in)
+    public String replace(String domain, String data, BlockTextures in)
     {
         for (String face : faces)
         {
-            data = data.replace(face, domain + ":blocks/" + in.getTexture(face));
+            data = data.replace(face, domain + ":blocks/" + in.get(face));
         }
         return data;
     }

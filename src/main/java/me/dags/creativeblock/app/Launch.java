@@ -43,11 +43,12 @@ public class Launch
         JFrame frame = new JFrame();
         frame.setTitle("CreativeBlock");
         frame.setLayout(new GridBagLayout());
-        frame.add(new SetupPane(frame));
+        SetupPane pane = new SetupPane(frame);
+        frame.add(pane);
         frame.pack();
         frame.setLocationRelativeTo(null);
-        frame.setResizable(false);
         frame.setVisible(true);
+        frame.setResizable(false);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 }
