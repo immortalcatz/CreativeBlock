@@ -79,18 +79,13 @@ public class Models
     public static final JsonData wall_gate_closed = JsonData.of(BLOCK + "fencegate/wall_gate_closed.json", "_wall_gate_closed");
     public static final JsonData wall_gate_open = JsonData.of(BLOCK + "fencegate/wall_gate_open.json", "_wall_gate_open");
     public static final JsonData ghost_block = JsonData.of(BLOCK + "block.json", "_ghost_block");
-    public static final JsonData ghost_pane_n = JsonData.of(BLOCK + "pane/pane_n.json", "_ghost_pane_n");
-    public static final JsonData ghost_pane_ne = JsonData.of(BLOCK + "pane/pane_ne.json", "_ghost_pane_ne");
-    public static final JsonData ghost_pane_new = JsonData.of(BLOCK + "pane/pane_new.json", "_ghost_pane_new");
-    public static final JsonData ghost_pane_ns = JsonData.of(BLOCK + "pane/pane_ns.json", "_ghost_pane_ns");
-    public static final JsonData ghost_pane_nse = JsonData.of(BLOCK + "pane/pane_nse.json", "_ghost_pane_nse");
-    public static final JsonData ghost_pane_nsew = JsonData.of(BLOCK + "pane/pane_nsew.json", "_ghost_pane_nsew");
-    public static final JsonData ghost_pane_nsw = JsonData.of(BLOCK + "pane/pane_nsw.json", "_ghost_pane_nsw");
-    public static final JsonData ghost_pane_nw = JsonData.of(BLOCK + "pane/pane_nw.json", "_ghost_pane_nw");
-    public static final JsonData ghost_pane_s = JsonData.of(BLOCK + "pane/pane_s.json", "_ghost_pane_s");
-    public static final JsonData ghost_pane_se = JsonData.of(BLOCK + "pane/pane_se.json", "_ghost_pane_se");
-    public static final JsonData ghost_pane_sew = JsonData.of(BLOCK + "pane/pane_sew.json", "_ghost_pane_sew");
-    public static final JsonData ghost_pane_sw = JsonData.of(BLOCK + "pane/pane_sw.json", "_ghost_pane_sw");
+
+    public static final JsonData ghost_pane_noside = JsonData.of(BLOCK + "pane/pane_noside.json", "_ghost_pane_noside");
+    public static final JsonData ghost_pane_noside_alt = JsonData.of(BLOCK + "pane/pane_noside_alt.json", "_ghost_pane_noside");
+    public static final JsonData ghost_pane_post = JsonData.of(BLOCK + "pane/pane_post.json", "_ghost_pane_post");
+    public static final JsonData ghost_pane_side = JsonData.of(BLOCK + "pane/pane_side.json", "_ghost_pane_side");
+    public static final JsonData ghost_pane_side_alt = JsonData.of(BLOCK + "pane/pane_side_alt.json", "_ghost_pane_side_alt");
+
     public static final JsonData glass = JsonData.of(BLOCK + "block.json", "_glass");
     public static final JsonData glass_stained = JsonData.of(BLOCK + "block.json", "_stained_glass");
     public static final JsonData half_door_bottom = JsonData.of(BLOCK + "door/door_top.json", "_half_door_bottom");
@@ -101,30 +96,19 @@ public class Models
     public static final JsonData light_web = JsonData.of(BLOCK + "web.json", "_light_web");
     public static final JsonData paving_bottom = JsonData.of(BLOCK + "paving/paving_bottom.json", "_paving_bottom");
     public static final JsonData slab_half = JsonData.of(BLOCK + "slab/slab_half.json", "_half_slab");
-    public static final JsonData pane_n = JsonData.of(BLOCK + "pane/pane_n.json", "_pane_n");
-    public static final JsonData pane_ne = JsonData.of(BLOCK + "pane/pane_ne.json", "_pane_ne");
-    public static final JsonData pane_new = JsonData.of(BLOCK + "pane/pane_new.json", "_pane_new");
-    public static final JsonData pane_ns = JsonData.of(BLOCK + "pane/pane_ns.json", "_pane_ns");
-    public static final JsonData pane_nse = JsonData.of(BLOCK + "pane/pane_nse.json", "_pane_nse");
-    public static final JsonData pane_nsew = JsonData.of(BLOCK + "pane/pane_nsew.json", "_pane_nsew");
-    public static final JsonData pane_nsw = JsonData.of(BLOCK + "pane/pane_nsw.json", "_pane_nsw");
-    public static final JsonData pane_nw = JsonData.of(BLOCK + "pane/pane_nw.json", "_pane_nw");
-    public static final JsonData pane_s = JsonData.of(BLOCK + "pane/pane_s.json", "_pane_s");
-    public static final JsonData pane_se = JsonData.of(BLOCK + "pane/pane_se.json", "_pane_se");
-    public static final JsonData pane_sew = JsonData.of(BLOCK + "pane/pane_sew.json", "_pane_sew");
-    public static final JsonData pane_sw = JsonData.of(BLOCK + "pane/pane_sw.json", "_pane_sw");
-    public static final JsonData pane_stained_n = JsonData.of(BLOCK + "pane/pane_n.json", "_pane_stained_n");
-    public static final JsonData pane_stained_ne = JsonData.of(BLOCK + "pane/pane_ne.json", "_pane_stained_ne");
-    public static final JsonData pane_stained_new = JsonData.of(BLOCK + "pane/pane_new.json", "_pane_stained_new");
-    public static final JsonData pane_stained_ns = JsonData.of(BLOCK + "pane/pane_ns.json", "_pane_stained_ns");
-    public static final JsonData pane_stained_nse = JsonData.of(BLOCK + "pane/pane_nse.json", "_pane_stained_nse");
-    public static final JsonData pane_stained_nsew = JsonData.of(BLOCK + "pane/pane_nsew.json", "_pane_stained_nsew");
-    public static final JsonData pane_stained_nsw = JsonData.of(BLOCK + "pane/pane_nsw.json", "_pane_stained_nsw");
-    public static final JsonData pane_stained_nw = JsonData.of(BLOCK + "pane/pane_nw.json", "_pane_stained_nw");
-    public static final JsonData pane_stained_s = JsonData.of(BLOCK + "pane/pane_s.json", "_pane_stained_s");
-    public static final JsonData pane_stained_se = JsonData.of(BLOCK + "pane/pane_se.json", "_pane_stained_se");
-    public static final JsonData pane_stained_sew = JsonData.of(BLOCK + "pane/pane_sew.json", "_pane_stained_sew");
-    public static final JsonData pane_stained_sw = JsonData.of(BLOCK + "pane/pane_sw.json", "_pane_stained_sw");
+
+    public static final JsonData pane_noside = JsonData.of(BLOCK + "pane/pane_noside.json", "_pane_noside");
+    public static final JsonData pane_noside_alt = JsonData.of(BLOCK + "pane/pane_noside_alt.json", "_pane_noside_alt");
+    public static final JsonData pane_post = JsonData.of(BLOCK + "pane/pane_post.json", "_pane_post");
+    public static final JsonData pane_side = JsonData.of(BLOCK + "pane/pane_side.json", "_pane_side");
+    public static final JsonData pane_side_alt = JsonData.of(BLOCK + "pane/pane_side_alt.json", "_pane_side_alt");
+
+    public static final JsonData pane_stained_noside = JsonData.of(BLOCK + "pane/pane_noside.json", "_pane_stained_noside");
+    public static final JsonData pane_stained_noside_alt = JsonData.of(BLOCK + "pane/pane_noside_alt.json", "_pane_stained_noside_alt");
+    public static final JsonData pane_stained_post = JsonData.of(BLOCK + "pane/pane_post.json", "_pane_stained_post");
+    public static final JsonData pane_stained_side = JsonData.of(BLOCK + "pane/pane_side.json", "_pane_stained_side");
+    public static final JsonData pane_stained_side_alt = JsonData.of(BLOCK + "pane/pane_side_alt.json", "_pane_stained_side_alt");
+
     public static final JsonData paving_top = JsonData.of(BLOCK + "paving/paving_top.json", "_paving_top");
     public static final JsonData plant = JsonData.of(BLOCK + "web.json", "_plant");
     public static final JsonData plate = JsonData.of(BLOCK + "plate.json", "_plate");

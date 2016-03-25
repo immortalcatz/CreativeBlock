@@ -24,7 +24,7 @@
 
 package me.dags.creativeblock.definition;
 
-import me.dags.creativeblock.adapter.TypeRegistry;
+import me.dags.creativeblock.CreativeBlock;
 
 import java.util.HashSet;
 import java.util.Optional;
@@ -94,12 +94,12 @@ public enum BlockType
         return suffixes;
     }
 
-    public void register(BlockDefinition definition)
+    public void register(CreativeBlock creativeBlock, BlockDefinition definition)
     {
-        TypeRegistry.get(this).register(definition);
+        creativeBlock.getAdapter(this).register(definition);
     }
 
-    private static final Set<String> types = new HashSet<String>();
+    private static final Set<String> types = new HashSet<>();
 
     static
     {

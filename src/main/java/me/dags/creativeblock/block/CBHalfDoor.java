@@ -55,9 +55,9 @@ public class CBHalfDoor extends CBDoor
         return Item.getItemFromBlock(this);
     }
 
-    public static BlockTypeAdapter adapter()
+    public static BlockTypeAdapter adapter(CreativeBlock creativeBlock)
     {
-        return new BlockAdapter(CreativeBlock.blockNames().half_door)
+        return new BlockAdapter(creativeBlock, creativeBlock.blockNames().half_door)
         {
             @Override
             public void createBlock(String transformedName, BlockDefinition definition)
@@ -65,7 +65,7 @@ public class CBHalfDoor extends CBDoor
                 Block block = new CBHalfDoor(definition.material.material());
                 super.setAttributes(block, transformedName, definition);
 
-                CreativeBlock.registrar().registerBlock(block, CBItemHalfDoor.class, true);
+                creativeBlock.registrar().registerBlock(block, CBItemHalfDoor.class, true);
                 block.setCreativeTab(Tabs.tabFor(definition.tabId, block));
             }
         };

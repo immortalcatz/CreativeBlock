@@ -74,9 +74,9 @@ public class CBDaySensor extends BlockDaylightDetector
         list.add(new ItemStack(itemIn));
     }
 
-    public static BlockTypeAdapter adapter()
+    public static BlockTypeAdapter adapter(CreativeBlock creativeBlock)
     {
-        return new BlockAdapter(CreativeBlock.blockNames().sensor)
+        return new BlockAdapter(creativeBlock, creativeBlock.blockNames().sensor)
         {
             @Override
             public void createBlock(String transformedName, BlockDefinition definition)

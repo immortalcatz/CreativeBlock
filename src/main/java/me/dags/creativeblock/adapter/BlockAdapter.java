@@ -36,10 +36,12 @@ import net.minecraft.block.Block;
 public abstract class BlockAdapter implements BlockTypeAdapter
 {
     private final String name;
+    protected final CreativeBlock creativeBlock;
 
-    protected BlockAdapter(String name)
+    protected BlockAdapter(CreativeBlock creativeBlock, String name)
     {
         this.name = "_" + name;
+        this.creativeBlock = creativeBlock;
     }
 
     @Override
@@ -54,7 +56,6 @@ public abstract class BlockAdapter implements BlockTypeAdapter
         block
                 .setRegistryName(name)
                 .setUnlocalizedName(name.toLowerCase())
-                .setStepSound(definition.material.sound())
                 .setHardness(definition.material.hardness());
     }
 
@@ -70,7 +71,7 @@ public abstract class BlockAdapter implements BlockTypeAdapter
 
     public void registerBlock(Block block, boolean withModel, boolean setTab, BlockDefinition definition)
     {
-        CreativeBlock.registrar().registerBlock(block, withModel);
+        creativeBlock.registrar().registerBlock(block, withModel);
         if (setTab)
         {
             block.setCreativeTab(Tabs.tabFor(definition.tabId, block));

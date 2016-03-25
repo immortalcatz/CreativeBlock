@@ -53,9 +53,9 @@ public class CBBlock extends Block
         return Item.getItemFromBlock(this);
     }
 
-    public static BlockTypeAdapter adapter()
+    public static BlockTypeAdapter adapter(CreativeBlock creativeBlock)
     {
-        return new BlockAdapter(CreativeBlock.blockNames().block)
+        return new BlockAdapter(creativeBlock, creativeBlock.blockNames().block)
         {
             @Override
             public void createBlock(String transformedName, BlockDefinition definition)

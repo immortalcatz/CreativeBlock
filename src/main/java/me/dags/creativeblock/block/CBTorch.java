@@ -57,9 +57,9 @@ public class CBTorch extends BlockTorch
     public void onNeighborBlockChange(World worldIn, BlockPos pos, IBlockState state, Block neighborBlock)
     {}
 
-    public static BlockTypeAdapter adapter()
+    public static BlockTypeAdapter adapter(CreativeBlock creativeBlock)
     {
-        return new BlockAdapter(CreativeBlock.blockNames().torch)
+        return new BlockAdapter(creativeBlock, creativeBlock.blockNames().torch)
         {
             @Override
             public void createBlock(String transformedName, BlockDefinition definition)

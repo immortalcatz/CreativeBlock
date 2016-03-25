@@ -38,7 +38,6 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.zip.ZipEntry;
-import java.util.zip.ZipException;
 import java.util.zip.ZipFile;
 
 /**
@@ -47,11 +46,12 @@ import java.util.zip.ZipFile;
 
 public class FileBlockPack extends BlockPack
 {
-    private static final String definitionsDir = "assets/" + CreativeBlock.domain() + "/definitions";
+    private final String definitionsDir;
 
-    public FileBlockPack(File file)
+    public FileBlockPack(CreativeBlock creativeBlock, File file)
     {
         super(file);
+        definitionsDir = "assets/" + creativeBlock.domain() + "/definitions";
     }
 
     @Override
@@ -62,10 +62,6 @@ public class FileBlockPack extends BlockPack
         try
         {
             populate(definitions);
-        }
-        catch (ZipException e)
-        {
-            e.printStackTrace();
         }
         catch (IOException e)
         {

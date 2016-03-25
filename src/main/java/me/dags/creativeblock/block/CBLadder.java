@@ -52,9 +52,9 @@ public class CBLadder extends BlockLadder
         return Item.getItemFromBlock(this);
     }
 
-    public static BlockTypeAdapter adapter()
+    public static BlockTypeAdapter adapter(CreativeBlock creativeBlock)
     {
-        return new BlockAdapter(CreativeBlock.blockNames().ladder)
+        return new BlockAdapter(creativeBlock, creativeBlock.blockNames().ladder)
         {
             @Override
             public void createBlock(String transformedName, BlockDefinition definition)

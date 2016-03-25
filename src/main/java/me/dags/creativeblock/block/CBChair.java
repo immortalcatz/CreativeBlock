@@ -74,9 +74,9 @@ public class CBChair extends CBShortChair
         return EnumWorldBlockLayer.TRANSLUCENT;
     }
 
-    public static BlockTypeAdapter adapter()
+    public static BlockTypeAdapter adapter(CreativeBlock creativeBlock)
     {
-        return new BlockAdapter(CreativeBlock.blockNames().chair)
+        return new BlockAdapter(creativeBlock, creativeBlock.blockNames().chair)
         {
             @Override
             public void createBlock(String transformedName, BlockDefinition definition)

@@ -63,9 +63,9 @@ public class CBPistonExtension extends BlockPistonExtension
         return Item.getItemFromBlock(this);
     }
 
-    public static BlockTypeAdapter adapter()
+    public static BlockTypeAdapter adapter(CreativeBlock creativeBlock)
     {
-        return new BlockAdapter(CreativeBlock.blockNames().piston_extension)
+        return new BlockAdapter(creativeBlock, creativeBlock.blockNames().piston_extension)
         {
             @Override
             public void createBlock(String transformedName, BlockDefinition definition)

@@ -74,9 +74,9 @@ public class CBLeaves extends BlockLeavesBase
         return Blocks.leaves.getBlockLayer();
     }
 
-    public static BlockTypeAdapter adapter()
+    public static BlockTypeAdapter adapter(CreativeBlock creativeBlock)
     {
-        return new BlockAdapter(CreativeBlock.blockNames().leaves)
+        return new BlockAdapter(creativeBlock, creativeBlock.blockNames().leaves)
         {
             @Override
             public void createBlock(String transformedName, BlockDefinition definition)

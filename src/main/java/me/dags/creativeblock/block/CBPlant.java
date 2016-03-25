@@ -47,9 +47,9 @@ public class CBPlant extends CBWeb
         return Item.getItemFromBlock(this);
     }
 
-    public static BlockTypeAdapter adapter()
+    public static BlockTypeAdapter adapter(CreativeBlock creativeBlock)
     {
-        return new BlockAdapter(CreativeBlock.blockNames().plant)
+        return new BlockAdapter(creativeBlock, creativeBlock.blockNames().plant)
         {
             @Override
             public void createBlock(String transformedName, BlockDefinition definition)

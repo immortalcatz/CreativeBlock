@@ -64,9 +64,9 @@ public class CBPaving extends CBTrapdoor
         return false;
     }
 
-    public static BlockTypeAdapter adapter()
+    public static BlockTypeAdapter adapter(CreativeBlock creativeBlock)
     {
-        return new BlockAdapter(CreativeBlock.blockNames().paving)
+        return new BlockAdapter(creativeBlock, creativeBlock.blockNames().paving)
         {
             @Override
             public void createBlock(String transformedName, BlockDefinition definition)

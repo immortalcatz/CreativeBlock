@@ -60,9 +60,9 @@ public class CBGlassBlockStained extends CBGlassBlock
         return EnumWorldBlockLayer.TRANSLUCENT;
     }
 
-    public static BlockTypeAdapter adapter()
+    public static BlockTypeAdapter adapter(CreativeBlock creativeBlock)
     {
-        return new BlockAdapter(CreativeBlock.blockNames().glass_stained)
+        return new BlockAdapter(creativeBlock, creativeBlock.blockNames().glass_stained)
         {
             @Override
             public void createBlock(String transformedName, BlockDefinition definition)

@@ -112,9 +112,9 @@ public class CBCarpet extends Block
         return new BlockState(this);
     }
 
-    public static BlockTypeAdapter adapter()
+    public static BlockTypeAdapter adapter(CreativeBlock creativeBlock)
     {
-        return new BlockAdapter(CreativeBlock.blockNames().carpet)
+        return new BlockAdapter(creativeBlock, creativeBlock.blockNames().carpet)
         {
             @Override
             public void createBlock(String transformedName, BlockDefinition definition)

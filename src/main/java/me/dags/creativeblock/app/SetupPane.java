@@ -136,7 +136,9 @@ public class SetupPane extends JPanel
             public void onUpdate()
             {
                 parentFrame.remove(SetupPane.this);
-                parentFrame.add(new EditorPane(targetDir, "acblocks"));
+                // todo: make domain configurable - read mcmodinfo maybe?
+                EditorPane editor = new EditorPane(targetDir, "acblocks");
+                parentFrame.add(editor);
                 parentFrame.pack();
                 parentFrame.setVisible(true);
                 parentFrame.setLocationRelativeTo(null);

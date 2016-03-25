@@ -67,9 +67,9 @@ public class CBCrops extends BlockCrops
     public void grow(World worldIn, Random rand, BlockPos pos, IBlockState state)
     {}
 
-    public static BlockTypeAdapter adapter()
+    public static BlockTypeAdapter adapter(CreativeBlock creativeBlock)
     {
-        return new BlockAdapter(CreativeBlock.blockNames().crops)
+        return new BlockAdapter(creativeBlock, creativeBlock.blockNames().crops)
         {
             @Override
             public void createBlock(String transformedName, BlockDefinition definition)

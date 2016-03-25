@@ -100,9 +100,9 @@ public class CBPlate extends BlockPressurePlate
         return false;
     }
 
-    public static BlockTypeAdapter adapter()
+    public static BlockTypeAdapter adapter(CreativeBlock creativeBlock)
     {
-        return new BlockAdapter(CreativeBlock.blockNames().plate)
+        return new BlockAdapter(creativeBlock, creativeBlock.blockNames().plate)
         {
             @Override
             public void createBlock(String transformedName, BlockDefinition definition)

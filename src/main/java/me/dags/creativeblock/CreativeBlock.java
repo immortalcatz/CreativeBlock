@@ -25,25 +25,29 @@
 package me.dags.creativeblock;
 
 import me.dags.creativeblock.adapter.BlockNames;
-import me.dags.creativeblock.adapter.TypeRegistry;
+import me.dags.creativeblock.adapter.BlockTypeAdapter;
 import me.dags.creativeblock.app.data.JsonData;
-import me.dags.creativeblock.util.dataprovider.ResourceDataProvider;
 import me.dags.creativeblock.block.*;
 import me.dags.creativeblock.blockpack.BlockPack;
 import me.dags.creativeblock.definition.BlockDefinition;
 import me.dags.creativeblock.definition.BlockType;
-import me.dags.creativeblock.proxy.*;
+import me.dags.creativeblock.proxy.BlockRegistrar;
+import me.dags.creativeblock.proxy.ClientProxy;
+import me.dags.creativeblock.proxy.Proxy;
+import me.dags.creativeblock.proxy.ServerProxy;
 import me.dags.creativeblock.util.FileUtil;
 import me.dags.creativeblock.util.LogUtil;
+import me.dags.creativeblock.util.dataprovider.ResourceDataProvider;
 import me.dags.creativeblock.util.logging.Logger4j;
-import net.minecraft.client.Minecraft;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.Side;
 
 import java.io.File;
+import java.util.EnumMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author dags <dags@dags.me>
@@ -51,125 +55,119 @@ import java.util.List;
 
 public final class CreativeBlock
 {
-    public static final String ID = "creativeblock";
-    private static final CreativeBlock INSTANCE = new CreativeBlock();
+    static final String ID = "creativeblock";
 
-    private String domain = ID;
-    private File blocksDir = Minecraft.getMinecraft().mcDataDir;
-    private Config config = new Config();
-    private Proxy proxy = new EmptyProxy();
-
-    private CreativeBlock()
-    {}
-
-    public static CreativeBlock withBlockNames(BlockNames names)
-    {
-        BlockNames.setBlockNames(names);
-        return INSTANCE;
-    }
-
-    private void registerTypes()
-    {
-        TypeRegistry.register(BlockType.ANVIL, CBAnvil.adapter());
-        TypeRegistry.register(BlockType.BLOCK, CBBlock.adapter());
-        TypeRegistry.register(BlockType.BUTTON, CBButton.adapter());
-        TypeRegistry.register(BlockType.CARPET, CBCarpet.adapter());
-        TypeRegistry.register(BlockType.CAULDRON, CBCauldron.adapter());
-        TypeRegistry.register(BlockType.CHAIR, CBChair.adapter());
-        TypeRegistry.register(BlockType.CROPS, CBCrops.adapter());
-        TypeRegistry.register(BlockType.DAY_SENSOR, CBDaySensor.adapter());
-        TypeRegistry.register(BlockType.DOOR, CBDoor.adapter());
-        TypeRegistry.register(BlockType.DOUBLE_PLANT, CBDoublePlant.adapter());
-        TypeRegistry.register(BlockType.FENCE, CBFence.adapter());
-        TypeRegistry.register(BlockType.FENCE_GATE, CBFenceGate.adapter());
-        TypeRegistry.register(BlockType.FURNACE, CBFurnace.adapter());
-        TypeRegistry.register(BlockType.GHOST_BLOCK, CBGhostBlock.adapter());
-        TypeRegistry.register(BlockType.GHOST_PANE, CBGhostPane.adapter());
-        TypeRegistry.register(BlockType.GLASS, CBGlassBlock.adapter());
-        TypeRegistry.register(BlockType.GLASS_STAINED, CBGlassBlockStained.adapter());
-        TypeRegistry.register(BlockType.HALF_DOOR, CBHalfDoor.adapter());
-        TypeRegistry.register(BlockType.ICE, CBIce.adapter());
-        TypeRegistry.register(BlockType.LADDER, CBLadder.adapter());
-        TypeRegistry.register(BlockType.LEAVES, CBLeaves.adapter());
-        TypeRegistry.register(BlockType.LIGHT_WEB, CBLightWeb.adapter());
-        TypeRegistry.register(BlockType.LOG, CBLog.adapter());
-        TypeRegistry.register(BlockType.PANE, CBPane.adapter());
-        TypeRegistry.register(BlockType.PANE_STAINED, CBPaneStained.adapter());
-        TypeRegistry.register(BlockType.PILLAR, CBDirectional.adapter());
-        TypeRegistry.register(BlockType.PISTON_EXTENSION, CBPistonExtension.adapter());
-        TypeRegistry.register(BlockType.PLANT, CBPlant.adapter());
-        TypeRegistry.register(BlockType.PLATE, CBPlate.adapter());
-        TypeRegistry.register(BlockType.POT, CBPot.adapter());
-        TypeRegistry.register(BlockType.SHORT_CHAIR, CBShortChair.adapter());
-        TypeRegistry.register(BlockType.SLAB, CBSlab.adapter());
-        TypeRegistry.register(BlockType.SLIM_SLAB, CBPaving.adapter());
-        TypeRegistry.register(BlockType.STAIRS, CBStair.adapter());
-        TypeRegistry.register(BlockType.TORCH, CBTorch.adapter());
-        TypeRegistry.register(BlockType.TRAP_DOOR, CBTrapdoor.adapter());
-        TypeRegistry.register(BlockType.TRUNK, CBTrunk.adapter());
-        TypeRegistry.register(BlockType.WALL, CBWall.adapter());
-        TypeRegistry.register(BlockType.WEB, CBWeb.adapter());
-    }
-
-    public static CreativeBlock init(String modId, File configDir, Side side)
+    static
     {
         LogUtil.setLogger(new Logger4j());
-        JsonData.setProvider(new ResourceDataProvider());
-        INSTANCE.domain = modId;
-        INSTANCE.config = Config.load(configDir, ID);
-        INSTANCE.blocksDir = FileUtil.getDir(configDir.getParentFile(), "blockpacks");
-        INSTANCE.proxy = side == Side.CLIENT ? new ClientProxy() : new ServerProxy();
-        INSTANCE.registerTypes();
-        return INSTANCE;
     }
 
-    public void onPreInit(FMLPreInitializationEvent event)
+    private final Map<BlockType, BlockTypeAdapter> typeMap = new EnumMap<>(BlockType.class);
+    private final String domain;
+    private final File blocksDir;
+    private final Proxy proxy;
+    private BlockNames blockNames = new BlockNames();
+
+    private CreativeBlock(String domain, File configDir, Side side)
     {
-        proxy().preInit(event);
+        LogUtil.setOptions(Config.load(configDir, ID));
+        JsonData.setProvider(new ResourceDataProvider());
+        this.domain = domain;
+        this.blocksDir = FileUtil.getDir(configDir.getParentFile(), "blockpacks");
+        this.proxy = side == Side.CLIENT ? new ClientProxy(this) : new ServerProxy(this);
+        registerTypes();
+    }
+
+    public CreativeBlock setBlockNames(BlockNames names)
+    {
+        this.blockNames = names;
+        return this;
     }
 
     public void onPostInit(FMLPostInitializationEvent event)
     {
-        List<BlockPack> blockPacks = BlockPack.getBlockPacks(blockpackDir());
+        List<BlockPack> blockPacks = BlockPack.getBlockPacks(this, blockpackDir());
         for (BlockPack pack : blockPacks)
         {
             FMLCommonHandler.instance().addModToResourcePack(pack);
             List<BlockDefinition> definitions = pack.getDefinitions();
-            for (BlockDefinition definition : definitions)
-            {
-                definition.register();
-            }
+            definitions.forEach(d -> d.register(this));
         }
-        proxy().postInit(event);
+        proxy.postInit(event);
     }
 
-    public static String domain()
+    public String domain()
     {
-        return INSTANCE.domain;
+        return domain;
     }
 
-    public static BlockNames blockNames()
+    public BlockNames blockNames()
     {
-        return BlockNames.get();
+        return blockNames;
     }
 
-    public static File blockpackDir()
+    public File blockpackDir()
     {
-        return INSTANCE.blocksDir;
+        return blocksDir;
     }
 
-    public static Config config()
+    public BlockRegistrar registrar()
     {
-        return INSTANCE.config;
+        return proxy.getRegistrar();
     }
 
-    public static Proxy proxy()
+    public BlockTypeAdapter getAdapter(BlockType type)
     {
-        return INSTANCE.proxy;
+        return typeMap.get(type);
     }
 
-    public static BlockRegistrar registrar()
+    private void registerTypes()
     {
-        return proxy().getRegistrar();
+        typeMap.put(BlockType.ANVIL, CBAnvil.adapter(this));
+        typeMap.put(BlockType.BLOCK, CBBlock.adapter(this));
+        typeMap.put(BlockType.BUTTON, CBButton.adapter(this));
+        typeMap.put(BlockType.CARPET, CBCarpet.adapter(this));
+        typeMap.put(BlockType.CAULDRON, CBCauldron.adapter(this));
+        typeMap.put(BlockType.CHAIR, CBChair.adapter(this));
+        typeMap.put(BlockType.CROPS, CBCrops.adapter(this));
+        typeMap.put(BlockType.DAY_SENSOR, CBDaySensor.adapter(this));
+        typeMap.put(BlockType.DOOR, CBDoor.adapter(this));
+        typeMap.put(BlockType.DOUBLE_PLANT, CBDoublePlant.adapter(this));
+        typeMap.put(BlockType.FENCE, CBFence.adapter(this));
+        typeMap.put(BlockType.FENCE_GATE, CBFenceGate.adapter(this));
+        typeMap.put(BlockType.FURNACE, CBFurnace.adapter(this));
+        typeMap.put(BlockType.GHOST_BLOCK, CBGhostBlock.adapter(this));
+        typeMap.put(BlockType.GHOST_PANE, CBGhostPane.adapter(this));
+        typeMap.put(BlockType.GLASS, CBGlassBlock.adapter(this));
+        typeMap.put(BlockType.GLASS_STAINED, CBGlassBlockStained.adapter(this));
+        typeMap.put(BlockType.HALF_DOOR, CBHalfDoor.adapter(this));
+        typeMap.put(BlockType.ICE, CBIce.adapter(this));
+        typeMap.put(BlockType.LADDER, CBLadder.adapter(this));
+        typeMap.put(BlockType.LEAVES, CBLeaves.adapter(this));
+        typeMap.put(BlockType.LIGHT_WEB, CBLightWeb.adapter(this));
+        typeMap.put(BlockType.LOG, CBLog.adapter(this));
+        typeMap.put(BlockType.PANE, CBPane.adapter(this));
+        typeMap.put(BlockType.PANE_STAINED, CBPaneStained.adapter(this));
+        typeMap.put(BlockType.PILLAR, CBDirectional.adapter(this));
+        typeMap.put(BlockType.PISTON_EXTENSION, CBPistonExtension.adapter(this));
+        typeMap.put(BlockType.PLANT, CBPlant.adapter(this));
+        typeMap.put(BlockType.PLATE, CBPlate.adapter(this));
+        typeMap.put(BlockType.POT, CBPot.adapter(this));
+        typeMap.put(BlockType.SHORT_CHAIR, CBShortChair.adapter(this));
+        typeMap.put(BlockType.SLAB, CBSlab.adapter(this));
+        typeMap.put(BlockType.SLIM_SLAB, CBPaving.adapter(this));
+        typeMap.put(BlockType.STAIRS, CBStair.adapter(this));
+        typeMap.put(BlockType.TORCH, CBTorch.adapter(this));
+        typeMap.put(BlockType.TRAP_DOOR, CBTrapdoor.adapter(this));
+        typeMap.put(BlockType.TRUNK, CBTrunk.adapter(this));
+        typeMap.put(BlockType.WALL, CBWall.adapter(this));
+        typeMap.put(BlockType.WEB, CBWeb.adapter(this));
+    }
+
+    public static CreativeBlock newInstance(String domain, FMLPreInitializationEvent event)
+    {
+        CreativeBlock creativeBlock = new CreativeBlock(domain, event.getModConfigurationDirectory(), event.getSide());
+        creativeBlock.proxy.preInit(event);
+        return creativeBlock;
     }
 }

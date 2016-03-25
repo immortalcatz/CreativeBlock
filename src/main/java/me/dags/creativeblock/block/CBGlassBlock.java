@@ -76,9 +76,9 @@ public class CBGlassBlock extends BlockGlass
         return super.shouldSideBeRendered(worldIn, pos, side);
     }
 
-    public static BlockTypeAdapter adapter()
+    public static BlockTypeAdapter adapter(CreativeBlock creativeBlock)
     {
-        return new BlockAdapter(CreativeBlock.blockNames().glass)
+        return new BlockAdapter(creativeBlock, creativeBlock.blockNames().glass)
         {
             @Override
             public void createBlock(String transformedName, BlockDefinition definition)

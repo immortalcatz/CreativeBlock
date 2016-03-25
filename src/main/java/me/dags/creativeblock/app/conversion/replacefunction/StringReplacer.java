@@ -33,7 +33,7 @@ import java.util.List;
 
 public class StringReplacer implements ReplaceFunction<String>
 {
-    private final List<Match> matches = new ArrayList<Match>();
+    private final List<Match> matches = new ArrayList<>();
 
     public StringReplacer with(String match)
     {
@@ -47,7 +47,7 @@ public class StringReplacer implements ReplaceFunction<String>
     }
 
     @Override
-    public String replace(String data, String in)
+    public String replace(String domain, String data, String in)
     {
         for (Match match : matches)
         {

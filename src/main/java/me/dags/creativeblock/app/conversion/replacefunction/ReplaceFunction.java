@@ -30,5 +30,5 @@ package me.dags.creativeblock.app.conversion.replacefunction;
 
 public interface ReplaceFunction<T>
 {
-    public String replace(String data, T in);
+    public String replace(String domain, String data, T in);
 }

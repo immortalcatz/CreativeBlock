@@ -24,6 +24,7 @@
 
 package me.dags.creativeblock.block;
 
+import me.dags.creativeblock.CreativeBlock;
 import me.dags.creativeblock.adapter.BlockAdapter;
 import me.dags.creativeblock.adapter.BlockTypeAdapter;
 import me.dags.creativeblock.definition.BlockDefinition;
@@ -59,9 +60,9 @@ public class CBWeb extends BlockWeb
         return Item.getItemFromBlock(this);
     }
 
-    public static BlockTypeAdapter adapter()
+    public static BlockTypeAdapter adapter(CreativeBlock creativeBlock)
     {
-        return new BlockAdapter("web")
+        return new BlockAdapter(creativeBlock, creativeBlock.blockNames().web)
         {
             @Override
             public void createBlock(String transformedName, BlockDefinition definition)

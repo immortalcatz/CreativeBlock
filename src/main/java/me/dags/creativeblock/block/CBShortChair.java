@@ -74,9 +74,9 @@ public class CBShortChair extends CBDaySensor
         return EnumWorldBlockLayer.TRANSLUCENT;
     }
 
-    public static BlockTypeAdapter adapter()
+    public static BlockTypeAdapter adapter(CreativeBlock creativeBlock)
     {
-        return new BlockAdapter(CreativeBlock.blockNames().short_chair)
+        return new BlockAdapter(creativeBlock, creativeBlock.blockNames().short_chair)
         {
             @Override
             public void createBlock(String transformedName, BlockDefinition definition)

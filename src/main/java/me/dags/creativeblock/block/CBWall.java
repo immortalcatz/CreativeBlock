@@ -178,9 +178,9 @@ public class CBWall extends Block
         return 0;
     }
 
-    public static BlockTypeAdapter adapter()
+    public static BlockTypeAdapter adapter(CreativeBlock creativeBlock)
     {
-        return new BlockAdapter(CreativeBlock.blockNames().wall)
+        return new BlockAdapter(creativeBlock, creativeBlock.blockNames().wall)
         {
             @Override
             public void createBlock(String transformedName, BlockDefinition definition)

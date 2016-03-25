@@ -60,9 +60,9 @@ public class CBPaneStained extends CBPane
         return EnumWorldBlockLayer.TRANSLUCENT;
     }
 
-    public static BlockTypeAdapter adapter()
+    public static BlockTypeAdapter adapter(CreativeBlock creativeBlock)
     {
-        return new BlockAdapter(CreativeBlock.blockNames().pane_stained)
+        return new BlockAdapter(creativeBlock, creativeBlock.blockNames().pane_stained)
         {
             @Override
             public void createBlock(String transformedName, BlockDefinition definition)

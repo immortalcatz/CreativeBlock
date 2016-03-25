@@ -24,6 +24,7 @@
 
 package me.dags.creativeblock.definition;
 
+import me.dags.creativeblock.CreativeBlock;
 import me.dags.creativeblock.definition.serialize.DefinitionSerializable;
 
 import java.util.ArrayList;
@@ -49,11 +50,11 @@ public class BlockDefinition
         this.blockTypes = types;
     }
 
-    public void register()
+    public void register(CreativeBlock creativeBlock)
     {
         for (BlockType type : blockTypes)
         {
-            type.register(this);
+            type.register(creativeBlock, this);
         }
     }
 

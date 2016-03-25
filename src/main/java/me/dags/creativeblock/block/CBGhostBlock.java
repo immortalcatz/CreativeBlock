@@ -68,9 +68,9 @@ public class CBGhostBlock extends CBBlock
         return null;
     }
 
-    public static BlockTypeAdapter adapter()
+    public static BlockTypeAdapter adapter(CreativeBlock creativeBlock)
     {
-        return new BlockAdapter(CreativeBlock.blockNames().ghost_block)
+        return new BlockAdapter(creativeBlock, creativeBlock.blockNames().ghost_block)
         {
             @Override
             public void createBlock(String transformedName, BlockDefinition definition)

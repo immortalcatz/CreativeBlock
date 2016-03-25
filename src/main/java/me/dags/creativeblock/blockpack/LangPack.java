@@ -44,11 +44,11 @@ import java.util.List;
 
 public class LangPack extends BlockPack
 {
-    public LangPack()
+    public LangPack(CreativeBlock creativeBlock)
     {
-        super(FileUtil.getDir(CreativeBlock.blockpackDir(), "langpack-1.0"));
+        super(FileUtil.getDir(creativeBlock.blockpackDir(), "langpack-1.0"));
         LogUtil.blockpack(this, "Generating language pack...");
-        File langDir = FileUtil.getDir(this.getSource(), "assets", CreativeBlock.domain(), "lang");
+        File langDir = FileUtil.getDir(this.getSource(), "assets", creativeBlock.domain(), "lang");
         File langFile = new File(langDir, "en_US.lang");
         try
         {
@@ -56,8 +56,8 @@ public class LangPack extends BlockPack
             {
                 LogUtil.io(this, "Creating new lang file {}", langFile);
             }
-            List<String> lines = new ArrayList<String>();
-            lines.addAll(CreativeBlock.registrar().getBlockNames());
+            List<String> lines = new ArrayList<>();
+            lines.addAll(creativeBlock.registrar().getBlockNames());
             lines.addAll(Tabs.getLang());
             LogUtil.io(this, "Writing {} lines to lang file {}", lines.size(), langFile);
             Files.write(langFile.toPath(), lines, Charset.defaultCharset());
@@ -77,6 +77,6 @@ public class LangPack extends BlockPack
     @Override
     public List<BlockDefinition> getDefinitions()
     {
-        return new ArrayList<BlockDefinition>();
+        return new ArrayList<>();
     }
 }
