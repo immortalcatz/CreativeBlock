@@ -33,6 +33,7 @@ import net.minecraftforge.fml.client.FMLFileResourcePack;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -47,17 +48,21 @@ import java.util.zip.ZipFile;
 public class FileBlockPack extends BlockPack
 {
     private final String definitionsDir;
+    private final String texturesDir;
+    private final CreativeBlock creativeBlock;
 
     public FileBlockPack(CreativeBlock creativeBlock, File file)
     {
         super(file);
+        this.creativeBlock = creativeBlock;
         definitionsDir = "assets/" + creativeBlock.domain() + "/definitions";
+        texturesDir = "assets/" + creativeBlock.domain() + "/textures/blocks/";
     }
 
     @Override
     public List<BlockDefinition> getDefinitions()
     {
-        List<BlockDefinition> definitions = new ArrayList<BlockDefinition>();
+        List<BlockDefinition> definitions = new ArrayList<>();
 
         try
         {
@@ -82,7 +87,7 @@ public class FileBlockPack extends BlockPack
         return "general";
     }
 
-    private void populate(List<BlockDefinition> definitions ) throws IOException
+    private void populate(List<BlockDefinition> definitions) throws IOException
     {
         ZipFile zipFile = new ZipFile(getSource());
         Enumeration<? extends ZipEntry> entries = zipFile.entries();
@@ -98,6 +103,25 @@ public class FileBlockPack extends BlockPack
                 definitions.add(BlockDefinition.from(definition));
             }
         }
+        zipFile.close();
+    }
+
+    public void copyServerTextures() throws IOException
+    {
+        ZipFile zipFile = new ZipFile(getSource());
+        Enumeration<? extends ZipEntry> entries = zipFile.entries();
+
+        while (entries.hasMoreElements())
+        {
+            ZipEntry entry = entries.nextElement();
+            if (entry.getName().startsWith(texturesDir) && entry.getName().endsWith(".png"))
+            {
+                String name = entry.getName().substring(texturesDir.length());
+                InputStream inputStream = zipFile.getInputStream(entry);
+                creativeBlock.proxy().dynmapSupport().copyTexture(name, inputStream);
+            }
+        }
+        zipFile.close();
     }
 
     @Override

@@ -35,6 +35,7 @@ import org.apache.commons.io.filefilter.IOFileFilter;
 import org.apache.commons.io.filefilter.TrueFileFilter;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -46,12 +47,12 @@ import java.util.Optional;
 
 public class FolderBlockPack extends BlockPack
 {
-    private final String domain;
+    private final CreativeBlock creativeBlock;
 
     public FolderBlockPack(CreativeBlock creativeBlock, File file)
     {
         super(file);
-        this.domain = creativeBlock.domain();
+        this.creativeBlock = creativeBlock;
     }
 
     public String getTabName(File definitions, File file)
@@ -68,9 +69,10 @@ public class FolderBlockPack extends BlockPack
     public List<BlockDefinition> getDefinitions()
     {
         List<BlockDefinition> definitions = new ArrayList<>();
-        final File definitionsDir = FileUtil.getDir(this.getSource(), "assets", domain, "definitions");
+        final File definitionsDir = FileUtil.getDir(this.getSource(), "assets", creativeBlock.domain(), "definitions");
+        final File texturesDir = FileUtil.getDir(this.getSource(), "assets", creativeBlock.domain(), "textures", "blocks");
 
-        Iterator<File> defIterator = FileUtils.iterateFilesAndDirs(definitionsDir, definitionsFiler(), TrueFileFilter.INSTANCE);
+        Iterator<File> defIterator = FileUtils.iterateFilesAndDirs(definitionsDir, definitionsFilter(), TrueFileFilter.INSTANCE);
         while (defIterator.hasNext())
         {
             File file = defIterator.next();
@@ -83,9 +85,12 @@ public class FolderBlockPack extends BlockPack
                 definitions.add(definition);
             }
         }
-
         return definitions;
     }
+
+    @Override
+    public void copyServerTextures() throws IOException
+    {}
 
     @Override
     public Class<?> getCustomResourcePackClass()
@@ -93,7 +98,7 @@ public class FolderBlockPack extends BlockPack
         return FMLFolderResourcePack.class;
     }
 
-    private static IOFileFilter definitionsFiler()
+    private static IOFileFilter definitionsFilter()
     {
         return new IOFileFilter()
         {
@@ -107,6 +112,24 @@ public class FolderBlockPack extends BlockPack
             public boolean accept(File dir, String name)
             {
                 return name.endsWith(".json");
+            }
+        };
+    }
+
+    private static IOFileFilter textureFilter()
+    {
+        return new IOFileFilter()
+        {
+            @Override
+            public boolean accept(File file)
+            {
+                return file.isFile();
+            }
+
+            @Override
+            public boolean accept(File dir, String name)
+            {
+                return name.endsWith(".png");
             }
         };
     }

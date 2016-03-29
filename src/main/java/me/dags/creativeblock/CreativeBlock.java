@@ -42,6 +42,7 @@ import me.dags.creativeblock.util.logging.Logger4j;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLServerStartedEvent;
 import net.minecraftforge.fml.relauncher.Side;
 
 import java.io.File;
@@ -63,18 +64,31 @@ public final class CreativeBlock
     }
 
     private final Map<BlockType, BlockTypeAdapter> typeMap = new EnumMap<>(BlockType.class);
-    private final String domain;
     private final File blocksDir;
+    private final Config config;
+    private final String domain;
+    private final String version;
     private final Proxy proxy;
+
     private BlockNames blockNames = new BlockNames();
 
-    private CreativeBlock(String domain, File configDir, Side side)
+    public static CreativeBlock newInstance(FMLPreInitializationEvent event)
     {
-        LogUtil.setOptions(Config.load(configDir, ID));
+        CreativeBlock creativeBlock = new CreativeBlock(event);
+        creativeBlock.proxy.preInit(event);
+        return creativeBlock;
+    }
+
+    private CreativeBlock(FMLPreInitializationEvent event)
+    {
+        this.config = Config.load(event.getModConfigurationDirectory(), ID);
+
+        LogUtil.setOptions(config);
         JsonData.setProvider(new ResourceDataProvider());
-        this.domain = domain;
-        this.blocksDir = FileUtil.getDir(configDir.getParentFile(), "blockpacks");
-        this.proxy = side == Side.CLIENT ? new ClientProxy(this) : new ServerProxy(this);
+        this.domain = event.getModMetadata().modId;
+        this.version = event.getModMetadata().version;
+        this.blocksDir = FileUtil.getDir(event.getModConfigurationDirectory().getParentFile(), "blockpacks");
+        this.proxy = event.getSide() == Side.CLIENT ? new ClientProxy(this) : new ServerProxy(this);
         registerTypes();
     }
 
@@ -94,11 +108,27 @@ public final class CreativeBlock
             definitions.forEach(d -> d.register(this));
         }
         proxy.postInit(event);
+        proxy.clear();
+    }
+
+    public void onServerStart(FMLServerStartedEvent event)
+    {
+        proxy.serverInit(event);
+    }
+
+    public Config config()
+    {
+        return config;
     }
 
     public String domain()
     {
         return domain;
+    }
+
+    public String version()
+    {
+        return version;
     }
 
     public BlockNames blockNames()
@@ -109,6 +139,11 @@ public final class CreativeBlock
     public File blockpackDir()
     {
         return blocksDir;
+    }
+
+    public Proxy proxy()
+    {
+        return proxy;
     }
 
     public BlockRegistrar registrar()
@@ -162,12 +197,5 @@ public final class CreativeBlock
         typeMap.put(BlockType.TRUNK, CBTrunk.adapter(this));
         typeMap.put(BlockType.WALL, CBWall.adapter(this));
         typeMap.put(BlockType.WEB, CBWeb.adapter(this));
-    }
-
-    public static CreativeBlock newInstance(String domain, FMLPreInitializationEvent event)
-    {
-        CreativeBlock creativeBlock = new CreativeBlock(domain, event.getModConfigurationDirectory(), event.getSide());
-        creativeBlock.proxy.preInit(event);
-        return creativeBlock;
     }
 }

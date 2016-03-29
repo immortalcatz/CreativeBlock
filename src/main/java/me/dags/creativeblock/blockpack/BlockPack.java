@@ -37,6 +37,7 @@ import net.minecraftforge.fml.common.versioning.VersionRange;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.security.cert.Certificate;
 import java.util.*;
@@ -241,6 +242,8 @@ public abstract class BlockPack implements ModContainer, Versioned<BlockPack>
     }
 
     public abstract List<BlockDefinition> getDefinitions();
+
+    public abstract void copyServerTextures() throws IOException;
 
     public static List<BlockPack> getBlockPacks(CreativeBlock creativeBlock, File blockpackDir)
     {

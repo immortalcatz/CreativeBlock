@@ -22,16 +22,27 @@
  * THE SOFTWARE.
  */
 
-package me.dags.creativeblock.adapter;
+package me.dags.creativeblock.dynmap.models;
 
-import me.dags.creativeblock.definition.BlockDefinition;
-import me.dags.creativeblock.definition.BlockType;
+import org.dynmap.modsupport.BlockTextureRecord;
+import org.dynmap.modsupport.ModTextureDefinition;
+import org.dynmap.modsupport.TransparencyMode;
 
 /**
  * @author dags <dags@dags.me>
  */
 
-public interface BlockTypeAdapter
+public class BlockSlab extends AbstractModel
 {
-    public void register(BlockType type, BlockDefinition definition);
+    @Override
+    void applyModel(ModTextureDefinition definition, String name)
+    {
+        definition.getModelDefinition().addBoxModel(name).setYRange(0, 0.5);
+    }
+
+    @Override
+    void applyProperties(BlockTextureRecord record)
+    {
+        record.setTransparencyMode(TransparencyMode.SEMITRANSPARENT);
+    }
 }

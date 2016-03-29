@@ -28,6 +28,8 @@ import me.dags.creativeblock.definition.BaseMaterial;
 import me.dags.creativeblock.util.LogUtil;
 
 import java.util.Arrays;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * @author dags <dags@dags.me>
@@ -40,6 +42,7 @@ public class DefinitionSerializable
     public String name = "";
     public String base = "";
     public String[] types = {};
+    public Map<String, String> textures = new LinkedHashMap<>();
     public transient String tabId = "";
     public transient String file;
 
@@ -82,6 +85,17 @@ public class DefinitionSerializable
         sb.append("{");
         sb.append(newLine).append(indent).append("\"name\": \"").append(name).append("\",");
         sb.append(newLine).append(indent).append("\"base\": \"").append(base).append("\",");
+        sb.append(newLine).append(indent).append("\"textures\": {");
+        int c = textures.size();
+        for (Map.Entry<String, String> side : textures.entrySet())
+        {
+            sb.append(newLine).append(indent).append(indent).append('"').append(side.getKey()).append("\": ").append('"').append(side.getValue()).append('"');
+            if (c-- > 0)
+            {
+                sb.append(',');
+            }
+        }
+        sb.append(newLine).append(indent).append('}').append(',');
         sb.append(newLine).append(indent).append("\"types\": [");
         for (int i = 0; i < types.length; i++)
         {

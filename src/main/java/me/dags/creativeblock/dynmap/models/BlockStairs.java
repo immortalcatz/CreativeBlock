@@ -22,51 +22,24 @@
  * THE SOFTWARE.
  */
 
-package me.dags.creativeblock.proxy;
+package me.dags.creativeblock.dynmap.models;
 
-import me.dags.creativeblock.CreativeBlock;
-import net.minecraft.block.Block;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import org.dynmap.modsupport.BlockTextureRecord;
+import org.dynmap.modsupport.ModTextureDefinition;
 
 /**
  * @author dags <dags@dags.me>
  */
 
-public class EmptyProxy extends BlockRegistrar
+public class BlockStairs extends AbstractModel
 {
-    public EmptyProxy(CreativeBlock creativeBlock)
+    @Override
+    void applyModel(ModTextureDefinition definition, String name)
     {
-        super(creativeBlock);
+        definition.getModelDefinition().addStairModel(name);
     }
 
     @Override
-    public void preInit(FMLPreInitializationEvent event)
-    {
-
-    }
-
-    @Override
-    public void postInit(FMLPostInitializationEvent event)
-    {
-
-    }
-
-    @Override
-    public BlockRegistrar getRegistrar()
-    {
-        return this;
-    }
-
-    @Override
-    public void clear()
-    {
-
-    }
-
-    @Override
-    public void registerBlockItem(Block block)
-    {
-
-    }
+    void applyProperties(BlockTextureRecord record)
+    {}
 }

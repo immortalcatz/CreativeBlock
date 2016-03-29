@@ -22,16 +22,17 @@
  * THE SOFTWARE.
  */
 
-package me.dags.creativeblock.adapter;
+package me.dags.creativeblock.dynmap.models;
 
-import me.dags.creativeblock.definition.BlockDefinition;
-import me.dags.creativeblock.definition.BlockType;
+import me.dags.creativeblock.definition.BlockTextures;
+import net.minecraft.block.Block;
+import org.dynmap.modsupport.ModTextureDefinition;
 
 /**
  * @author dags <dags@dags.me>
  */
 
-public interface BlockTypeAdapter
+public interface ModelMaker
 {
-    public void register(BlockType type, BlockDefinition definition);
+    void registerBlock(ModTextureDefinition definition, Block block, BlockTextures textures);
 }

@@ -25,9 +25,16 @@
 package me.dags.creativeblock.proxy;
 
 import me.dags.creativeblock.CreativeBlock;
+import me.dags.creativeblock.definition.BlockDefinition;
+import me.dags.creativeblock.definition.BlockType;
+import me.dags.creativeblock.dynmap.DummySupport;
+import me.dags.creativeblock.dynmap.IDynmapSupport;
+import me.dags.creativeblock.util.LogUtil;
 import net.minecraft.block.Block;
+import net.minecraft.item.ItemBlock;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLServerStartedEvent;
 
 /**
  * @author dags <dags@dags.me>
@@ -35,18 +42,56 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 public class ServerProxy extends BlockRegistrar
 {
+    private final IDynmapSupport dynmapSupport;
+
     public ServerProxy(CreativeBlock creativeBlock)
     {
         super(creativeBlock);
+        dynmapSupport = DummySupport.getInstance(creativeBlock);
     }
 
     @Override
     public void preInit(FMLPreInitializationEvent event)
-    {}
+    {
+        LogUtil.info(this, "Initialized Server proxy!");
+    }
 
     @Override
     public void postInit(FMLPostInitializationEvent event)
-    {}
+    {
+        if (!creativeBlock.config().enableDynmapSupport)
+        {
+            return;
+        }
+        dynmapSupport.publish();
+    }
+
+    @Override
+    public void serverInit(FMLServerStartedEvent event)
+    {
+        if (!creativeBlock.config().enableDynmapSupport)
+        {
+            return;
+        }
+        dynmapSupport.copyTextures();
+    }
+
+    @Override
+    public IDynmapSupport dynmapSupport()
+    {
+        return dynmapSupport;
+    }
+
+    @Override
+    public void registerBlock(BlockType type, BlockDefinition definition, Block block, Class<? extends ItemBlock> item, boolean withItem, Object... args)
+    {
+        super.registerBlock(type, definition, block, item, withItem, args);
+        if (!creativeBlock.config().enableDynmapSupport)
+        {
+            return;
+        }
+        dynmapSupport.registerBlock(block, type, definition.textures);
+    }
 
     @Override
     public void registerBlockItem(Block block)

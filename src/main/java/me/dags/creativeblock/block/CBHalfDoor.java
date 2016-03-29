@@ -29,6 +29,7 @@ import me.dags.creativeblock.Tabs;
 import me.dags.creativeblock.adapter.BlockAdapter;
 import me.dags.creativeblock.adapter.BlockTypeAdapter;
 import me.dags.creativeblock.definition.BlockDefinition;
+import me.dags.creativeblock.definition.BlockType;
 import me.dags.creativeblock.item.CBItemHalfDoor;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -65,7 +66,7 @@ public class CBHalfDoor extends CBDoor
                 Block block = new CBHalfDoor(definition.material.material());
                 super.setAttributes(block, transformedName, definition);
 
-                creativeBlock.registrar().registerBlock(block, CBItemHalfDoor.class, true);
+                creativeBlock.registrar().registerBlock(BlockType.HALF_DOOR, definition, block, CBItemHalfDoor.class, true);
                 block.setCreativeTab(Tabs.tabFor(definition.tabId, block));
             }
         };

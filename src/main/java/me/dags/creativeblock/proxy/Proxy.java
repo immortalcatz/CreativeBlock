@@ -24,8 +24,10 @@
 
 package me.dags.creativeblock.proxy;
 
+import me.dags.creativeblock.dynmap.IDynmapSupport;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLServerStartedEvent;
 
 /**
  * @author dags <dags@dags.me>
@@ -33,11 +35,15 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 public interface Proxy
 {
-    public void preInit(FMLPreInitializationEvent event);
+    void preInit(FMLPreInitializationEvent event);
 
-    public void postInit(FMLPostInitializationEvent event);
+    void postInit(FMLPostInitializationEvent event);
 
-    public BlockRegistrar getRegistrar();
+    void serverInit(FMLServerStartedEvent event);
 
-    public void clear();
+    IDynmapSupport dynmapSupport();
+
+    BlockRegistrar getRegistrar();
+
+    void clear();
 }

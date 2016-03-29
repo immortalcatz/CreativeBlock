@@ -36,9 +36,11 @@ import java.util.Optional;
 
 public class Config
 {
-    public boolean logIoOperations = true;
-    public boolean logRegisterOperations = true;
-    public boolean logBlockpackOperations = true;
+    public boolean logIoOperations = false;
+    public boolean logRegisterOperations = false;
+    public boolean logBlockpackOperations = false;
+    public boolean enableDynmapSupport = true;
+
 
     public static Config load(File configDir, String modId)
     {

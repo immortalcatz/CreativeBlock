@@ -40,13 +40,15 @@ public class BlockDefinition
     public final String name;
     public final String tabId;
     public final BaseMaterial material;
+    public final BlockTextures textures;
     public final List<BlockType> blockTypes;
 
-    private BlockDefinition(String name, String tabId, BaseMaterial material, List<BlockType> types)
+    private BlockDefinition(String name, String tabId, BaseMaterial material, BlockTextures textures, List<BlockType> types)
     {
         this.name = name;
         this.tabId = tabId;
         this.material = material;
+        this.textures = textures;
         this.blockTypes = types;
     }
 
@@ -80,7 +82,7 @@ public class BlockDefinition
             throw new UnsupportedOperationException("Invalid definition!");
         }
         Optional<BaseMaterial> matOptional = BaseMaterial.from(definition.base);
-        List<BlockType> types = new ArrayList<BlockType>();
+        List<BlockType> types = new ArrayList<>();
         for (String s : definition.types)
         {
             Optional<BlockType> typeOptional = BlockType.from(s);
@@ -89,6 +91,6 @@ public class BlockDefinition
                 types.add(typeOptional.get());
             }
         }
-        return new BlockDefinition(definition.name, definition.tabId, matOptional.get(), types);
+        return new BlockDefinition(definition.name, definition.tabId, matOptional.get(), new BlockTextures(definition.textures), types);
     }
 }

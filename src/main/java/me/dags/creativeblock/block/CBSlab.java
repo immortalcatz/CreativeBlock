@@ -29,6 +29,7 @@ import me.dags.creativeblock.Tabs;
 import me.dags.creativeblock.adapter.BlockAdapter;
 import me.dags.creativeblock.adapter.BlockTypeAdapter;
 import me.dags.creativeblock.definition.BlockDefinition;
+import me.dags.creativeblock.definition.BlockType;
 import me.dags.creativeblock.item.CBItemSlab;
 import net.minecraft.block.BlockSlab;
 import net.minecraft.block.material.Material;
@@ -171,7 +172,7 @@ public abstract class CBSlab extends BlockSlab
                 super.setAttributes(doubleSlab, definition.name + "_" + creativeBlock.blockNames().double_slab, definition);
                 super.registerBlock(doubleSlab, false, definition);
 
-                creativeBlock.registrar().registerBlock(halfSlab, CBItemSlab.class, true, halfSlab, doubleSlab);
+                creativeBlock.registrar().registerBlock(BlockType.SLAB, definition, halfSlab, CBItemSlab.class, true, halfSlab, doubleSlab);
                 halfSlab.setCreativeTab(Tabs.tabFor(definition.tabId, halfSlab));
             }
         };

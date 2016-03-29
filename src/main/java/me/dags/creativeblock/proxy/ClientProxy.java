@@ -26,6 +26,9 @@ package me.dags.creativeblock.proxy;
 
 import me.dags.creativeblock.CreativeBlock;
 import me.dags.creativeblock.blockpack.LangPack;
+import me.dags.creativeblock.dynmap.DummySupport;
+import me.dags.creativeblock.dynmap.IDynmapSupport;
+import me.dags.creativeblock.util.LogUtil;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.RenderItem;
@@ -34,6 +37,7 @@ import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLServerStartedEvent;
 
 /**
  * @author dags <dags@dags.me>
@@ -41,6 +45,8 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 public class ClientProxy extends BlockRegistrar
 {
+    final IDynmapSupport dynmapSupport = new DummySupport();
+
     public ClientProxy(CreativeBlock creativeBlock)
     {
         super(creativeBlock);
@@ -48,13 +54,25 @@ public class ClientProxy extends BlockRegistrar
 
     @Override
     public void preInit(FMLPreInitializationEvent event)
-    {}
+    {
+        LogUtil.info(this, "Initialized Client proxy!");
+    }
 
     @Override
     public void postInit(FMLPostInitializationEvent event)
     {
         LangPack langPack = new LangPack(creativeBlock);
         FMLCommonHandler.instance().addModToResourcePack(langPack);
+    }
+
+    @Override
+    public void serverInit(FMLServerStartedEvent event)
+    {}
+
+    @Override
+    public IDynmapSupport dynmapSupport()
+    {
+        return dynmapSupport;
     }
 
     @Override

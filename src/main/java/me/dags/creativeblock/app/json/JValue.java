@@ -24,10 +24,6 @@
 
 package me.dags.creativeblock.app.json;
 
-import java.io.*;
-import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
 
@@ -202,62 +198,5 @@ public class JValue
             sb.append(ch);
         }
         return sb.toString();
-    }
-
-    public static JValue from(InputStream in)
-    {
-        return new JParser(new BufferedInputStream(in)).parse();
-    }
-
-    public static JValue fromJson(String jsonString)
-    {
-        try
-        {
-            return from(new ByteArrayInputStream(jsonString.getBytes("UTF-8")));
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-            return empty;
-        }
-    }
-
-    public static JValue fromUrl(String urlAddress)
-    {
-        try
-        {
-            return from(new URL(urlAddress).openConnection().getInputStream());
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-            return empty;
-        }
-    }
-
-    public static JValue fromFile(File file)
-    {
-        try
-        {
-            return from(new FileInputStream(file));
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-            return empty;
-        }
-    }
-
-    public static JValue fromPath(Path path)
-    {
-        try
-        {
-            return from(Files.newInputStream(path));
-        }
-        catch (IOException e)
-        {
-            e.printStackTrace();
-            return empty;
-        }
     }
 }

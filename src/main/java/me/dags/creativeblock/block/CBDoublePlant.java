@@ -29,6 +29,7 @@ import me.dags.creativeblock.Tabs;
 import me.dags.creativeblock.adapter.BlockAdapter;
 import me.dags.creativeblock.adapter.BlockTypeAdapter;
 import me.dags.creativeblock.definition.BlockDefinition;
+import me.dags.creativeblock.definition.BlockType;
 import me.dags.creativeblock.item.CBItemPlant;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;
@@ -230,7 +231,7 @@ public class CBDoublePlant extends BlockBush
                 Block block = new CBDoublePlant();
                 super.setAttributes(block, transformedName, definition);
 
-                creativeBlock.registrar().registerBlock(block, CBItemPlant.class, true);
+                creativeBlock.registrar().registerBlock(BlockType.DOUBLE_PLANT, definition, block, CBItemPlant.class, true);
                 block.setCreativeTab(Tabs.tabFor(definition.tabId, block));
             }
         };

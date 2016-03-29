@@ -41,6 +41,19 @@ public class BlockTextures
         sides = s4 == null ? "" : s4;
     }
 
+    public BlockTextures(Map<String, String> map)
+    {
+        normal = map.containsKey("normal") ? map.get("normal") : "";
+        top = map.containsKey("top") ? map.get("top") : "";
+        bottom = map.containsKey("bottom") ? map.get("bottom") : "";
+        sides = map.containsKey("sides") ? map.get("sides") : "";
+    }
+
+    public boolean valid()
+    {
+        return !normal.isEmpty() || (!top.isEmpty() && !bottom.isEmpty() && !sides.isEmpty());
+    }
+
     private String normal()
     {
         return normal;

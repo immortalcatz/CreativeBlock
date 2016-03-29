@@ -79,4 +79,10 @@ public class LangPack extends BlockPack
     {
         return new ArrayList<>();
     }
+
+    @Override
+    public void copyServerTextures() throws IOException
+    {
+
+    }
 }

@@ -22,16 +22,53 @@
  * THE SOFTWARE.
  */
 
-package me.dags.creativeblock.adapter;
+package me.dags.creativeblock.dynmap;
 
-import me.dags.creativeblock.definition.BlockDefinition;
+import me.dags.creativeblock.CreativeBlock;
+import me.dags.creativeblock.definition.BlockTextures;
 import me.dags.creativeblock.definition.BlockType;
+import me.dags.creativeblock.util.LogUtil;
+import net.minecraft.block.Block;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * @author dags <dags@dags.me>
  */
 
-public interface BlockTypeAdapter
+public class DummySupport implements IDynmapSupport
 {
-    public void register(BlockType type, BlockDefinition definition);
+    @Override
+    public void copyTextures()
+    {}
+
+    @Override
+    public void copyTexture(String name, InputStream resourceStream) throws IOException
+    {}
+
+    @Override
+    public void registerBlock(Block block, BlockType type, BlockTextures textures)
+    {}
+
+    @Override
+    public void publish()
+    {
+
+    }
+
+    public static IDynmapSupport getInstance(CreativeBlock creativeBlock)
+    {
+        try
+        {
+            Class.forName("org.dynmap.modsupport.ModSupportAPI");
+        }
+        catch (ClassNotFoundException e)
+        {
+            LogUtil.info(IDynmapSupport.class, "Dynmap not detected, bypassing dynmap support");
+            return new DummySupport();
+        }
+        LogUtil.info(IDynmapSupport.class, "Dynmap detected, providing modblock support!");
+        return DynmapSupport.newInstance(creativeBlock);
+    }
 }

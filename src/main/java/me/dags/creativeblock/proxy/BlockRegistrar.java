@@ -25,6 +25,8 @@
 package me.dags.creativeblock.proxy;
 
 import me.dags.creativeblock.CreativeBlock;
+import me.dags.creativeblock.definition.BlockDefinition;
+import me.dags.creativeblock.definition.BlockType;
 import me.dags.creativeblock.util.LogUtil;
 import me.dags.creativeblock.util.NamingUtil;
 import net.minecraft.block.Block;
@@ -39,12 +41,10 @@ import java.util.*;
 
 public abstract class BlockRegistrar implements Proxy
 {
-    public static final Map<String, Integer> mappings = new HashMap<String, Integer>();
-
     private final Map<String, String> register = new HashMap<>();
     protected final CreativeBlock creativeBlock;
 
-    protected BlockRegistrar(CreativeBlock creativeBlock)
+    BlockRegistrar(CreativeBlock creativeBlock)
     {
         this.creativeBlock = creativeBlock;
     }
@@ -55,12 +55,12 @@ public abstract class BlockRegistrar implements Proxy
         return this;
     }
 
-    public void registerBlock(Block block, boolean withItem)
+    public void registerBlock(BlockType type, BlockDefinition definition, Block block, boolean withItem)
     {
-        registerBlock(block, ItemBlock.class, withItem);
+        registerBlock(type, definition, block, ItemBlock.class, withItem);
     }
 
-    public void registerBlock(Block block, Class<? extends ItemBlock> item, boolean withItem, Object... args)
+    public void registerBlock(BlockType type, BlockDefinition definition, Block block, Class<? extends ItemBlock> item, boolean withItem, Object... args)
     {
         if (register.containsValue(block.getRegistryName()))
         {

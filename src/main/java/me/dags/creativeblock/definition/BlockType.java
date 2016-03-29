@@ -96,7 +96,7 @@ public enum BlockType
 
     public void register(CreativeBlock creativeBlock, BlockDefinition definition)
     {
-        creativeBlock.getAdapter(this).register(definition);
+        creativeBlock.getAdapter(this).register(this, definition);
     }
 
     private static final Set<String> types = new HashSet<>();

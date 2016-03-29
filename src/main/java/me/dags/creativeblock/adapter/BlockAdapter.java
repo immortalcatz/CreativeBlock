@@ -27,6 +27,7 @@ package me.dags.creativeblock.adapter;
 import me.dags.creativeblock.CreativeBlock;
 import me.dags.creativeblock.Tabs;
 import me.dags.creativeblock.definition.BlockDefinition;
+import me.dags.creativeblock.definition.BlockType;
 import net.minecraft.block.Block;
 
 /**
@@ -37,6 +38,7 @@ public abstract class BlockAdapter implements BlockTypeAdapter
 {
     private final String name;
     protected final CreativeBlock creativeBlock;
+    private BlockType type = BlockType.BLOCK;
 
     protected BlockAdapter(CreativeBlock creativeBlock, String name)
     {
@@ -45,8 +47,9 @@ public abstract class BlockAdapter implements BlockTypeAdapter
     }
 
     @Override
-    public void register(BlockDefinition definition)
+    public void register(BlockType type, BlockDefinition definition)
     {
+        this.type = type;
         String name = definition.name + this.name;
         createBlock(name, definition);
     }
@@ -56,7 +59,8 @@ public abstract class BlockAdapter implements BlockTypeAdapter
         block
                 .setRegistryName(name)
                 .setUnlocalizedName(name.toLowerCase())
-                .setHardness(definition.material.hardness());
+                .setHardness(definition.material.hardness())
+                .setStepSound(definition.material.sound());
     }
 
     public void registerBlock(Block block, BlockDefinition definition)
@@ -71,7 +75,7 @@ public abstract class BlockAdapter implements BlockTypeAdapter
 
     public void registerBlock(Block block, boolean withModel, boolean setTab, BlockDefinition definition)
     {
-        creativeBlock.registrar().registerBlock(block, withModel);
+        creativeBlock.registrar().registerBlock(type, definition, block, withModel);
         if (setTab)
         {
             block.setCreativeTab(Tabs.tabFor(definition.tabId, block));

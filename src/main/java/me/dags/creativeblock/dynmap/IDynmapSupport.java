@@ -22,55 +22,26 @@
  * THE SOFTWARE.
  */
 
-package me.dags.creativeblock.block;
+package me.dags.creativeblock.dynmap;
+
+import me.dags.creativeblock.definition.BlockTextures;
+import me.dags.creativeblock.definition.BlockType;
+import net.minecraft.block.Block;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * @author dags <dags@dags.me>
  */
 
-public class _TODO
+public interface IDynmapSupport
 {
-    /*
-    #BLOCK,
-    #LOG,
-    #PILLAR
-    #SLAB,
-    #STAIRS,
-    #DOOR,
-    #HALF_DOOR - opens wrong direction :S
-    #LIGHT_WEB,
-    #FENCE,
-    #WALL,
-    #TRAP_DOOR
-    #TRUNK - like wall
-    #SLIM_SLAB,
-    #LEAVES,
-    #WEB,
-    #PANE,
-    #STAINED_PANE,
-    #GHOST_BLOCK,
-    #GHOST_PANE,
-    #GLASS,
-    #STAINED_GLASS,
-    #FENCE_GATE,
-    #LADDER,
-    #ICE,
-    #POT,
-    #TORCH,
-    #DOUBLE_PLANT,
-    #ANVIL,
-    #PLANT,
-    #CROPS,
-    #CAULDRON,
-    #PLATE,
-    #CARPET,
-    #BUTTON,
-    #FURNACE,
-    #DAY_SENSOR,
-    @PISTON_EXTENSION,
+    void copyTextures();
 
-    CHAIR (slab),
-    SHORT_CHAIR,
-    ;
-    */
+    void copyTexture(String name, InputStream resourceStream) throws IOException;
+
+    void registerBlock(Block block, BlockType type, BlockTextures textures);
+
+    void publish();
 }

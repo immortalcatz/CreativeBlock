@@ -22,16 +22,26 @@
  * THE SOFTWARE.
  */
 
-package me.dags.creativeblock.adapter;
+package me.dags.creativeblock.dynmap.models;
 
-import me.dags.creativeblock.definition.BlockDefinition;
-import me.dags.creativeblock.definition.BlockType;
+import org.dynmap.modsupport.BlockTextureRecord;
+import org.dynmap.modsupport.ModTextureDefinition;
 
 /**
  * @author dags <dags@dags.me>
  */
 
-public interface BlockTypeAdapter
+public class BlockDoor extends AbstractModel
 {
-    public void register(BlockType type, BlockDefinition definition);
+    @Override
+    void applyModel(ModTextureDefinition definition, String name)
+    {
+        definition.getModelDefinition().addDoorModel(name);
+    }
+
+    @Override
+    void applyProperties(BlockTextureRecord record)
+    {
+
+    }
 }
