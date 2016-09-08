@@ -35,6 +35,7 @@ import net.minecraft.client.renderer.entity.RenderItem;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartedEvent;
@@ -59,7 +60,7 @@ public class ClientProxy extends BlockRegistrar
     }
 
     @Override
-    public void postInit(FMLPostInitializationEvent event)
+    public void postInit(FMLInitializationEvent event)
     {
         LangPack langPack = new LangPack(creativeBlock);
         FMLCommonHandler.instance().addModToResourcePack(langPack);

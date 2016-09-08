@@ -22,29 +22,27 @@
  * THE SOFTWARE.
  */
 
-package me.dags.creativeblock.proxy;
+package me.dags.creativeblock.dynmap.models;
 
-import me.dags.creativeblock.dynmap.IDynmapSupport;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLServerStartedEvent;
+import org.dynmap.modsupport.BlockTextureRecord;
+import org.dynmap.modsupport.ModTextureDefinition;
+import org.dynmap.modsupport.TransparencyMode;
 
 /**
  * @author dags <dags@dags.me>
  */
 
-public interface Proxy
+public class BlockCrops extends AbstractModel
 {
-    void preInit(FMLPreInitializationEvent event);
+    @Override
+    void applyModel(ModTextureDefinition definition, String name)
+    {
+        definition.getModelDefinition().addBoxModel(name);
+    }
 
-    void postInit(FMLInitializationEvent event);
-
-    void serverInit(FMLServerStartedEvent event);
-
-    IDynmapSupport dynmapSupport();
-
-    BlockRegistrar getRegistrar();
-
-    void clear();
+    @Override
+    void applyProperties(BlockTextureRecord record)
+    {
+        record.setTransparencyMode(TransparencyMode.TRANSPARENT);
+    }
 }

@@ -105,6 +105,7 @@ public class CBEntityChair extends Entity
         double zPos = pos.getZ() + 0.5D;
         CBEntityChair e = new CBEntityChair(w, xPos, yPos, zPos);
         e.setPosition(xPos, yPos, zPos);
+        e.setMounted(true);
         w.spawnEntityInWorld(e);
         ep.mountEntity(e);
         if (e.riddenByEntity == null)
@@ -112,7 +113,6 @@ public class CBEntityChair extends Entity
             e.worldObj.removeEntity(e);
             return false;
         }
-        e.setMounted(true);
         return true;
     }
 }

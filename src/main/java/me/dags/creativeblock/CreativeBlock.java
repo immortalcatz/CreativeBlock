@@ -26,7 +26,6 @@ package me.dags.creativeblock;
 
 import me.dags.creativeblock.adapter.BlockNames;
 import me.dags.creativeblock.adapter.BlockTypeAdapter;
-import me.dags.creativeblock.app.data.JsonData;
 import me.dags.creativeblock.block.*;
 import me.dags.creativeblock.blockpack.BlockPack;
 import me.dags.creativeblock.definition.BlockDefinition;
@@ -37,9 +36,9 @@ import me.dags.creativeblock.proxy.Proxy;
 import me.dags.creativeblock.proxy.ServerProxy;
 import me.dags.creativeblock.util.FileUtil;
 import me.dags.creativeblock.util.LogUtil;
-import me.dags.creativeblock.util.dataprovider.ResourceDataProvider;
 import me.dags.creativeblock.util.logging.Logger4j;
 import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartedEvent;
@@ -84,7 +83,6 @@ public final class CreativeBlock
         this.config = Config.load(event.getModConfigurationDirectory(), ID);
 
         LogUtil.setOptions(config);
-        JsonData.setProvider(new ResourceDataProvider());
         this.domain = event.getModMetadata().modId;
         this.version = event.getModMetadata().version;
         this.blocksDir = FileUtil.getDir(event.getModConfigurationDirectory().getParentFile(), "blockpacks");
@@ -98,7 +96,7 @@ public final class CreativeBlock
         return this;
     }
 
-    public void onPostInit(FMLPostInitializationEvent event)
+    public void onPostInit(FMLInitializationEvent event)
     {
         List<BlockPack> blockPacks = BlockPack.getBlockPacks(this, blockpackDir());
         for (BlockPack pack : blockPacks)

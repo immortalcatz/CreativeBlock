@@ -40,6 +40,7 @@ public class LogUtil
     private boolean logIo = true;
     private boolean logRegisters = true;
     private boolean logBlockpacks = true;
+    private boolean logDynmap = true;
 
     private LogUtil()
     {}
@@ -59,6 +60,7 @@ public class LogUtil
         get().logIo = config.logIoOperations;
         get().logRegisters = config.logRegisterOperations;
         get().logBlockpacks = config.logBlockpackOperations;
+        get().logDynmap = config.logDynmapOperations;
     }
 
     public static void info(String message, Object... args)
@@ -89,5 +91,10 @@ public class LogUtil
     public static void blockpack(Object caller, String message, Object... args)
     {
         if (get().logBlockpacks) info(caller, message, args);
+    }
+
+    public static void dynmap(Object caller, String message, Object... args)
+    {
+        if (get().logDynmap) info(caller, message, args);
     }
 }

@@ -32,6 +32,7 @@ import me.dags.creativeblock.dynmap.IDynmapSupport;
 import me.dags.creativeblock.util.LogUtil;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemBlock;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartedEvent;
@@ -57,7 +58,7 @@ public class ServerProxy extends BlockRegistrar
     }
 
     @Override
-    public void postInit(FMLPostInitializationEvent event)
+    public void postInit(FMLInitializationEvent event)
     {
         if (!creativeBlock.config().enableDynmapSupport)
         {

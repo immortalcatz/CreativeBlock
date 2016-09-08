@@ -55,11 +55,13 @@ public class DynmapSupport implements IDynmapSupport
     static
     {
         shapes.put(BlockType.BLOCK, new BlockNormal());
-        shapes.put(BlockType.CROPS, new BlockPlant());
+        shapes.put(BlockType.CROPS, new BlockCrops());
         shapes.put(BlockType.DOOR, new BlockDoor());
+        shapes.put(BlockType.DOUBLE_PLANT, new BlockDoublePlant());
         shapes.put(BlockType.FENCE, new BlockFence());
         shapes.put(BlockType.LEAVES, new BlockNormalTransparent());
         shapes.put(BlockType.PANE, new BlockPane());
+        shapes.put(BlockType.PLANT, new BlockPlant());
         shapes.put(BlockType.SLAB, new BlockSlab());
         shapes.put(BlockType.SLIM_SLAB, new BlockSlabThin());
         shapes.put(BlockType.STAIRS, new BlockStairs());
@@ -70,7 +72,6 @@ public class DynmapSupport implements IDynmapSupport
         shapes.put(BlockType.CAULDRON, shapes.get(BlockType.BLOCK));
         shapes.put(BlockType.CHAIR, shapes.get(BlockType.SLAB));
         shapes.put(BlockType.DAY_SENSOR, shapes.get(BlockType.SLAB));
-        shapes.put(BlockType.DOUBLE_PLANT, shapes.get(BlockType.CROPS));
         shapes.put(BlockType.FURNACE, shapes.get(BlockType.BLOCK));
         shapes.put(BlockType.GLASS, shapes.get(BlockType.LEAVES));
         shapes.put(BlockType.GLASS_STAINED, shapes.get(BlockType.GLASS));
@@ -122,7 +123,7 @@ public class DynmapSupport implements IDynmapSupport
         {
             return;
         }
-        LogUtil.io(this, "Copying {} to {}", name, file);
+        LogUtil.dynmap(this, "Copying {} to {}", name, file);
         Files.copy(resourceStream, file);
     }
 
@@ -131,7 +132,7 @@ public class DynmapSupport implements IDynmapSupport
     {
         if (shapes.containsKey(type) && textures.valid())
         {
-            LogUtil.info(this, "Registering dynmap model for {}", block.getRegistryName());
+            LogUtil.dynmap(this, "Registering dynmap model for {}", block.getRegistryName());
             shapes.get(type).registerBlock(modTextureDefinition, block, textures);
         }
     }

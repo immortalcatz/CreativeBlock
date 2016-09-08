@@ -31,15 +31,20 @@ import me.dags.creativeblock.definition.BlockDefinition;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockCauldron;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumWorldBlockLayer;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import java.util.List;
 
 /**
  * @author dags <dags@dags.me>
@@ -48,15 +53,28 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class CBCauldron extends BlockCauldron
 {
     public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn)
-    {}
+    {
+    }
 
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ)
     {
+        ItemStack inhand = playerIn.getCurrentEquippedItem();
+        if (inhand == null)
+        {
+            return true;
+        }
+        if (inhand.getItem() == Items.water_bucket)
+        {
+            IBlockState iblockstate = worldIn.getBlockState(pos);
+            worldIn.setBlockState(pos, iblockstate.cycleProperty(LEVEL));
+            return true;
+        }
         return false;
     }
 
     public void fillWithRain(World worldIn, BlockPos pos)
-    {}
+    {
+    }
 
     @SideOnly(Side.CLIENT)
     public EnumWorldBlockLayer getBlockLayer()

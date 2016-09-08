@@ -1,6 +1,0 @@
-{
-    "variants": {
-        "half=bottom,variant=false": { "model": "#insert_half_slab" },
-        "half=top,variant=false": { "model": "#insert_upper_slab" }
-    }
-}

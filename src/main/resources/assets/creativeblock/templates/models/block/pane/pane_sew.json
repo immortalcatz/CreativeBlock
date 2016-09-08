@@ -1,7 +1,0 @@
-{
-    "parent": "block/pane_sew",
-    "textures": {
-        "edge": "#top",
-        "pane": "#side"
-    }
-}

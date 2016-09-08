@@ -39,6 +39,7 @@ public class Config
     public boolean logIoOperations = false;
     public boolean logRegisterOperations = false;
     public boolean logBlockpackOperations = false;
+    public boolean logDynmapOperations = false;
     public boolean enableDynmapSupport = true;
 
 

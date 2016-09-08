@@ -1,8 +1,0 @@
-{
-    "parent": "block/piston_head",
-    "textures": {
-        "unsticky": "#top",
-        "side": "#side",
-        "platform": "#top"
-    }
-}

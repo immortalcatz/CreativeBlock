@@ -24,9 +24,8 @@
 
 package me.dags.creativeblock.dynmap.models;
 
-import org.dynmap.modsupport.BlockTextureRecord;
-import org.dynmap.modsupport.ModTextureDefinition;
-import org.dynmap.modsupport.TransparencyMode;
+import me.dags.creativeblock.definition.BlockTextures;
+import org.dynmap.modsupport.*;
 
 /**
  * @author dags <dags@dags.me>
@@ -37,13 +36,19 @@ public class BlockPlant extends AbstractModel
     @Override
     void applyModel(ModTextureDefinition definition, String name)
     {
-        definition.getModelDefinition().addBoxModel(name);
+        definition.getModelDefinition().addPlantModel(name);
     }
 
     @Override
     void applyProperties(BlockTextureRecord record)
-    {
-        record.setTransparencyMode(TransparencyMode.TRANSPARENT);
-    }
+    {}
 
+    public BlockTextureRecord textureRecord(ModTextureDefinition definition, String name, BlockTextures textures)
+    {
+        TextureFile side = definition.registerTextureFile(textures.get("#side"));
+        BlockTextureRecord record = definition.addBlockTextureRecord(name);
+        record.setSideTexture(side, BlockSide.ALLSIDES);
+        record.setSideTexture(side, BlockSide.TOP);
+        return record;
+    }
 }

@@ -1,8 +1,0 @@
-{
-    "parent": "block/anvil",
-    "textures": {
-        "particle": "#side",
-        "body": "#side",
-        "top": "#top"
-    }
-}
