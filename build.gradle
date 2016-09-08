@@ -20,15 +20,6 @@ buildscript {
     }
 }
 
-repositories {
-    mavenCentral()
-    maven { url "https://jitpack.io" }
-}
-
-dependencies {
-
-}
-
 minecraft {
     version = "1.8.9-11.15.1.1902-1.8.9"
     runDir = "run"
